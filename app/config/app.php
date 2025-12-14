@@ -37,8 +37,4 @@ if (APP_ENV === 'development') {
     error_reporting(0);
 }
 
-// ========================
-// AUTOLOAD CORE FILES
-// ========================
-require_once __DIR__ . '/../core/Database.php';
-require_once __DIR__ . '/../core/Auth.php';
+

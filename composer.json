@@ -1,0 +1,13 @@
+{
+    "name": "arielthekillers/voucher-app",
+    "description": "Voucher Management System",
+    "autoload": {
+        "classmap": [
+            "app/"
+        ],
+        "files": [
+            "app/config/app.php"
+        ]
+    },
+    "require": {}
+}

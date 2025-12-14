@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../../app/config/app.php';
+require_once '../../vendor/autoload.php';
 
 if (isset($_SESSION['user'])) {
     header('Location: dashboard.php');

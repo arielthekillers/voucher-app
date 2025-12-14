@@ -96,5 +96,13 @@ $stmt->execute([
     $user['id']
 ]);
 
-header('Location: redeem.php?q=' . urlencode($customer['phone']));
+// Send WhatsApp Notification
+if (isset($customer['phone'])) {
+    require_once ROOT_PATH . '/app/services/WhatsAppService.php';
+    $wa = new WhatsAppService();
+    $wa->sendRedeemNotification($customer['phone'], $promo['title'], $promo['point_cost']);
+}
+
+// Redirect to history or back with success
+header('Location: redeem.php?customer=' . urlencode($customer['name']) . '&status=redeem_success');
 exit;

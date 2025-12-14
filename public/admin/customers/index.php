@@ -54,6 +54,9 @@ $customers = $stmt->fetchAll();
                     <td><?= htmlspecialchars($c['phone']) ?></td>
                     <td><?= $c['created_at'] ?></td>
                     <td>
+                        <a href="send_message.php?id=<?= $c['id'] ?>" class="btn btn-primary btn-sm" style="display:inline-flex; background: #25D366; border-color: #25D366; color: white;">
+                            <i class='bx bxl-whatsapp'></i> Chat
+                        </a>
                         <a href="edit.php?id=<?= $c['id'] ?>" class="btn btn-primary btn-sm" style="display:inline-flex;">Edit</a>
                         <a href="delete.php?id=<?= $c['id'] ?>"
                             class="btn btn-danger btn-sm"

@@ -15,7 +15,7 @@ $db = Database::connect();
 $allowed_keys = [
     'business_name', 'business_address', 'business_email', 'business_phone',
     'time_zone', 'currency_name', 'favicon_url',
-    'whatsapp_enabled', 'whatsapp_endpoint', 'whatsapp_api_token'
+    'whatsapp_enabled', 'whatsapp_endpoint', 'whatsapp_api_token', 'whatsapp_device_id'
 ];
 
 try {

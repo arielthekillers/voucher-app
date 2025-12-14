@@ -66,5 +66,13 @@ $stmt->execute([
     $user['id']
 ]);
 
-header('Location: earn.php');
-exit;
+
+    // Send WhatsApp Notification
+    if (isset($customer['phone'], $new_points)) {
+        require_once ROOT_PATH . '/app/services/WhatsAppService.php';
+        $wa = new WhatsAppService();
+        $wa->sendEarnNotification($customer['phone'], $point, $new_points);
+    }
+
+    header('Location: earn.php?status=success');
+    exit;

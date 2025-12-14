@@ -94,6 +94,9 @@ $settings = $data; // format: ['key' => 'value']
 
             <label>API Token / Key</label>
             <input type="password" name="whatsapp_api_token" value="<?= htmlspecialchars($settings['whatsapp_api_token'] ?? '') ?>">
+
+            <label>Device Key (ID)</label>
+            <input type="text" name="whatsapp_device_id" value="<?= htmlspecialchars($settings['whatsapp_device_id'] ?? '') ?>">
         </div>
 
         <div style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem; text-align: right;">

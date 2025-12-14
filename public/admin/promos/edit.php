@@ -20,32 +20,36 @@ if (!$p) exit('Promo tidak ditemukan');
 
 <h2>Edit Promo</h2>
 
-<form action="update.php" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="id" value="<?= $p['id'] ?>">
+<div class="card">
+    <form action="update.php" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<?= $p['id'] ?>">
 
-    <label>Judul</label><br>
-    <input type="text" name="title" value="<?= htmlspecialchars($p['title']) ?>" required><br><br>
+        <label>Judul</label>
+        <input type="text" name="title" value="<?= htmlspecialchars($p['title']) ?>" required>
 
-    <label>Deskripsi</label><br>
-    <textarea name="description"><?= htmlspecialchars($p['description']) ?></textarea><br><br>
+        <label>Deskripsi</label>
+        <textarea name="description"><?= htmlspecialchars($p['description']) ?></textarea>
 
-    <?php if ($p['image']): ?>
-        <img src="<?= BASE_URL; ?>/storage/uploads/promos/<?= $p['image'] ?>" width="120"><br><br>
-    <?php endif; ?>
+        <?php if ($p['image']): ?>
+            <div style="margin-bottom: 1rem;">
+                <img src="<?= BASE_URL; ?>/storage/uploads/promos/<?= $p['image'] ?>" width="120" style="border-radius: 8px;">
+            </div>
+        <?php endif; ?>
 
-    <label>Ganti Gambar</label><br>
-    <input type="file" name="image"><br><br>
+        <label>Ganti Gambar</label>
+        <input type="file" name="image">
 
-    <label>Point Dibutuhkan</label><br>
-    <input type="number" name="point_cost" value="<?= $p['point_cost'] ?>" required><br><br>
+        <label>Point Dibutuhkan</label>
+        <input type="number" name="point_cost" value="<?= $p['point_cost'] ?>" required>
 
-    <label>Status</label><br>
-    <select name="is_active">
-        <option value="1" <?= $p['is_active'] ? 'selected' : '' ?>>Aktif</option>
-        <option value="0" <?= !$p['is_active'] ? 'selected' : '' ?>>Nonaktif</option>
-    </select><br><br>
+        <label>Status</label>
+        <select name="is_active">
+            <option value="1" <?= $p['is_active'] ? 'selected' : '' ?>>Aktif</option>
+            <option value="0" <?= !$p['is_active'] ? 'selected' : '' ?>>Nonaktif</option>
+        </select>
 
-    <button type="submit">Update</button>
-</form>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
 
 <?php include '../../../resources/views/layouts/footer.php'; ?>

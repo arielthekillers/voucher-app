@@ -11,14 +11,16 @@ auth_required();
 
 <h2>Tambah Customer</h2>
 
-<form action="store.php" method="POST">
-    <label>Nama</label><br>
-    <input type="text" name="name" required><br><br>
+<div class="card">
+    <form action="store.php" method="POST">
+        <label>Nama</label>
+        <input type="text" name="name" required>
 
-    <label>No WhatsApp</label><br>
-    <input type="text" name="phone" required placeholder="08xxxx"><br><br>
+        <label>No WhatsApp</label>
+        <input type="text" name="phone" required placeholder="08xxxx">
 
-    <button type="submit">Simpan</button>
-</form>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+    </form>
+</div>
 
 <?php include '../../../resources/views/layouts/footer.php'; ?>

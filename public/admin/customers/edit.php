@@ -23,16 +23,18 @@ if (!$c) {
 
 <h2>Edit Customer</h2>
 
-<form action="update.php" method="POST">
-    <input type="hidden" name="id" value="<?= $c['id'] ?>">
+<div class="card">
+    <form action="update.php" method="POST">
+        <input type="hidden" name="id" value="<?= $c['id'] ?>">
 
-    <label>Nama</label><br>
-    <input type="text" name="name" value="<?= htmlspecialchars($c['name']) ?>" required><br><br>
+        <label>Nama</label>
+        <input type="text" name="name" value="<?= htmlspecialchars($c['name']) ?>" required>
 
-    <label>No WhatsApp</label><br>
-    <input type="text" name="phone" value="<?= htmlspecialchars($c['phone']) ?>" required><br><br>
+        <label>No WhatsApp</label>
+        <input type="text" name="phone" value="<?= htmlspecialchars($c['phone']) ?>" required>
 
-    <button type="submit">Update</button>
-</form>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
 
 <?php include '../../../resources/views/layouts/footer.php'; ?>

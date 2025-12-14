@@ -14,33 +14,35 @@ $outlets = $db->query("SELECT * FROM outlets ORDER BY outlet_name")->fetchAll();
 
 <h2>Tambah User</h2>
 
-<form action="store.php" method="POST">
-    <label>Nama</label><br>
-    <input type="text" name="name" required><br><br>
+<div class="card">
+    <form action="store.php" method="POST">
+        <label>Nama</label>
+        <input type="text" name="name" required>
 
-    <label>Username</label><br>
-    <input type="text" name="username" required><br><br>
+        <label>Username</label>
+        <input type="text" name="username" required>
 
-    <label>Password</label><br>
-    <input type="password" name="password" required><br><br>
+        <label>Password</label>
+        <input type="password" name="password" required>
 
-    <label>Role</label><br>
-    <select name="role" required>
-        <option value="admin">Admin</option>
-        <option value="super_admin">Super Admin</option>
-    </select><br><br>
+        <label>Role</label>
+        <select name="role" required>
+            <option value="admin">Admin</option>
+            <option value="super_admin">Super Admin</option>
+        </select>
 
-    <label>Outlet</label><br>
-    <select name="outlet_id">
-        <option value="">-- Tidak ada (Super Admin) --</option>
-        <?php foreach ($outlets as $o): ?>
-            <option value="<?= $o['id'] ?>">
-                <?= htmlspecialchars($o['outlet_name']) ?>
-            </option>
-        <?php endforeach; ?>
-    </select><br><br>
+        <label>Outlet</label>
+        <select name="outlet_id">
+            <option value="">-- Tidak ada (Super Admin) --</option>
+            <?php foreach ($outlets as $o): ?>
+                <option value="<?= $o['id'] ?>">
+                    <?= htmlspecialchars($o['outlet_name']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
 
-    <button type="submit">Simpan</button>
-</form>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+    </form>
+</div>
 
 <?php include '../../../resources/views/layouts/footer.php'; ?>

@@ -16,7 +16,15 @@ $user = $_SESSION['user'] ?? null;
 
     <script>
         function toggleSidebar() {
-            document.querySelector('.sidebar').classList.toggle('active');
+            const sidebar = document.querySelector('.sidebar');
+            const content = document.querySelector('.main-content');
+            
+            if (window.innerWidth > 768) {
+                sidebar.classList.toggle('collapsed');
+                content.classList.toggle('expanded');
+            } else {
+                sidebar.classList.toggle('active');
+            }
         }
     </script>
 </head>

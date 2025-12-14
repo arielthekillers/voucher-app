@@ -27,19 +27,23 @@ if (!$outlet) {
 
 <h2>Edit Outlet</h2>
 
-<form action="update.php" method="POST">
-    <input type="hidden" name="id" value="<?= $outlet['id'] ?>">
+<div class="card">
+    <form action="update.php" method="POST">
+        <input type="hidden" name="id" value="<?= $outlet['id'] ?>">
 
-    <label>Kode Outlet</label><br>
-    <input type="text" name="outlet_code"
-        value="<?= htmlspecialchars($outlet['outlet_code']) ?>" required><br><br>
+        <label>Kode Outlet</label>
+        <input type="text" name="outlet_code"
+            value="<?= htmlspecialchars($outlet['outlet_code']) ?>" required>
 
-    <label>Nama Outlet</label><br>
-    <input type="text" name="outlet_name"
-        value="<?= htmlspecialchars($outlet['outlet_name']) ?>" required><br><br>
+        <label>Nama Outlet</label>
+        <input type="text" name="outlet_name"
+            value="<?= htmlspecialchars($outlet['outlet_name']) ?>" required>
 
-    <button type="submit">Update</button>
-    <a href="index.php">Batal</a>
-</form>
+        <div style="margin-top: 1rem;">
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a href="index.php" class="btn btn-danger" style="margin-left: 0.5rem;">Batal</a>
+        </div>
+    </form>
+</div>
 
 <?php include '../../../resources/views/layouts/footer.php'; ?>

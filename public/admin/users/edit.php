@@ -25,42 +25,44 @@ $outlets = $db->query("SELECT * FROM outlets ORDER BY outlet_name")->fetchAll();
 
 <h2>Edit User</h2>
 
-<form action="update.php" method="POST">
-    <input type="hidden" name="id" value="<?= $user['id'] ?>">
+<div class="card">
+    <form action="update.php" method="POST">
+        <input type="hidden" name="id" value="<?= $user['id'] ?>">
 
-    <label>Nama</label><br>
-    <input type="text" name="name" value="<?= htmlspecialchars($user['name']) ?>" required><br><br>
+        <label>Nama</label>
+        <input type="text" name="name" value="<?= htmlspecialchars($user['name']) ?>" required>
 
-    <label>Username</label><br>
-    <input type="text" name="username" value="<?= htmlspecialchars($user['username']) ?>" required><br><br>
+        <label>Username</label>
+        <input type="text" name="username" value="<?= htmlspecialchars($user['username']) ?>" required>
 
-    <label>Password (kosongkan jika tidak diubah)</label><br>
-    <input type="password" name="password"><br><br>
+        <label>Password (kosongkan jika tidak diubah)</label>
+        <input type="password" name="password">
 
-    <label>Role</label><br>
-    <select name="role">
-        <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
-        <option value="super_admin" <?= $user['role'] == 'super_admin' ? 'selected' : '' ?>>Super Admin</option>
-    </select><br><br>
+        <label>Role</label>
+        <select name="role">
+            <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
+            <option value="super_admin" <?= $user['role'] == 'super_admin' ? 'selected' : '' ?>>Super Admin</option>
+        </select>
 
-    <label>Outlet</label><br>
-    <select name="outlet_id">
-        <option value="">-- Tidak ada --</option>
-        <?php foreach ($outlets as $o): ?>
-            <option value="<?= $o['id'] ?>"
-                <?= $user['outlet_id'] == $o['id'] ? 'selected' : '' ?>>
-                <?= htmlspecialchars($o['outlet_name']) ?>
-            </option>
-        <?php endforeach; ?>
-    </select><br><br>
+        <label>Outlet</label>
+        <select name="outlet_id">
+            <option value="">-- Tidak ada --</option>
+            <?php foreach ($outlets as $o): ?>
+                <option value="<?= $o['id'] ?>"
+                    <?= $user['outlet_id'] == $o['id'] ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($o['outlet_name']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
 
-    <label>Status</label><br>
-    <select name="status">
-        <option value="active" <?= $user['status'] == 'active' ? 'selected' : '' ?>>Active</option>
-        <option value="inactive" <?= $user['status'] == 'inactive' ? 'selected' : '' ?>>Inactive</option>
-    </select><br><br>
+        <label>Status</label>
+        <select name="status">
+            <option value="active" <?= $user['status'] == 'active' ? 'selected' : '' ?>>Active</option>
+            <option value="inactive" <?= $user['status'] == 'inactive' ? 'selected' : '' ?>>Inactive</option>
+        </select>
 
-    <button type="submit">Update</button>
-</form>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
 
 <?php include '../../../resources/views/layouts/footer.php'; ?>

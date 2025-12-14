@@ -11,14 +11,16 @@ role_required('super_admin');
 
 <h2>Tambah Outlet</h2>
 
-<form action="store.php" method="POST">
-    <label>Kode Outlet</label><br>
-    <input type="text" name="outlet_code" required><br><br>
+<div class="card">
+    <form action="store.php" method="POST">
+        <label>Kode Outlet</label>
+        <input type="text" name="outlet_code" required>
 
-    <label>Nama Outlet</label><br>
-    <input type="text" name="outlet_name" required><br><br>
+        <label>Nama Outlet</label>
+        <input type="text" name="outlet_name" required>
 
-    <button type="submit">Simpan</button>
-</form>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+    </form>
+</div>
 
 <?php include '../../../resources/views/layouts/footer.php'; ?>

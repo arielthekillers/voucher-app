@@ -9,26 +9,28 @@ auth_required();
 
 <h2>Tambah Promo</h2>
 
-<form action="store.php" method="POST" enctype="multipart/form-data">
-    <label>Judul Promo</label><br>
-    <input type="text" name="title" required><br><br>
+<div class="card">
+    <form action="store.php" method="POST" enctype="multipart/form-data">
+        <label>Judul Promo</label>
+        <input type="text" name="title" required>
 
-    <label>Deskripsi</label><br>
-    <textarea name="description"></textarea><br><br>
+        <label>Deskripsi</label>
+        <textarea name="description"></textarea>
 
-    <label>Gambar (opsional)</label><br>
-    <input type="file" name="image"><br><br>
+        <label>Gambar (opsional)</label>
+        <input type="file" name="image">
 
-    <label>Point Dibutuhkan</label><br>
-    <input type="number" name="point_cost" required><br><br>
+        <label>Point Dibutuhkan</label>
+        <input type="number" name="point_cost" required>
 
-    <label>Status</label><br>
-    <select name="is_active">
-        <option value="1">Aktif</option>
-        <option value="0">Nonaktif</option>
-    </select><br><br>
+        <label>Status</label>
+        <select name="is_active">
+            <option value="1">Aktif</option>
+            <option value="0">Nonaktif</option>
+        </select>
 
-    <button type="submit">Simpan</button>
-</form>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+    </form>
+</div>
 
 <?php include '../../../resources/views/layouts/footer.php'; ?>

@@ -9,45 +9,54 @@ $user = Auth::user();
         </div>
     </div>
 
+    <?php
+    $current_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    
+    function isActive($path) {
+        global $current_path;
+        return strpos($current_path, $path) !== false ? 'active' : '';
+    }
+    ?>
+
     <nav class="sidebar-menu">
         <div class="menu-label">Main Menu</div>
         
-        <a href="<?= BASE_URL ?>/public/admin/dashboard.php" class="nav-link">
+        <a href="<?= BASE_URL ?>/public/admin/dashboard.php" class="nav-link <?= isActive('/admin/dashboard.php') ?>">
             <i class='bx bxs-dashboard'></i> Dashboard
         </a>
 
         <?php if ($user && $user['role'] === 'super_admin'): ?>
             <div class="menu-label" style="margin-top: 1rem;">Admin</div>
             
-            <a href="<?= BASE_URL ?>/public/admin/users/index.php" class="nav-link">
+            <a href="<?= BASE_URL ?>/public/admin/users/index.php" class="nav-link <?= isActive('/admin/users/') ?>">
                 <i class='bx bxs-user-account'></i> User Management
             </a>
-            <a href="<?= BASE_URL ?>/public/admin/outlets/index.php" class="nav-link">
+            <a href="<?= BASE_URL ?>/public/admin/outlets/index.php" class="nav-link <?= isActive('/admin/outlets/') ?>">
                 <i class='bx bxs-store'></i> Master Outlet
             </a>
-            <a href="<?= BASE_URL ?>/public/admin/settings/index.php" class="nav-link">
+            <a href="<?= BASE_URL ?>/public/admin/settings/index.php" class="nav-link <?= isActive('/admin/settings/') ?>">
                 <i class='bx bxs-cog'></i> Settings
             </a>
         <?php endif; ?>
 
         <div class="menu-label" style="margin-top: 1rem;">Data</div>
 
-        <a href="<?= BASE_URL ?>/public/admin/customers/index.php" class="nav-link">
+        <a href="<?= BASE_URL ?>/public/admin/customers/index.php" class="nav-link <?= isActive('/admin/customers/') ?>">
             <i class='bx bxs-user-detail'></i> Customers
         </a>
-        <a href="<?= BASE_URL ?>/public/admin/promos/index.php" class="nav-link">
+        <a href="<?= BASE_URL ?>/public/admin/promos/index.php" class="nav-link <?= isActive('/admin/promos/') ?>">
             <i class='bx bxs-offer'></i> Promos
         </a>
 
         <div class="menu-label" style="margin-top: 1rem;">Transaction</div>
 
-        <a href="<?= BASE_URL ?>/public/admin/transactions/earn.php" class="nav-link">
+        <a href="<?= BASE_URL ?>/public/admin/transactions/earn.php" class="nav-link <?= isActive('/admin/transactions/earn.php') ?>">
             <i class='bx bx-plus-circle'></i> Tambah Point
         </a>
-        <a href="<?= BASE_URL ?>/public/admin/transactions/redeem.php" class="nav-link">
+        <a href="<?= BASE_URL ?>/public/admin/transactions/redeem.php" class="nav-link <?= isActive('/admin/transactions/redeem.php') ?>">
             <i class='bx bx-gift'></i> Redeem Promo
         </a>
-        <a href="<?= BASE_URL ?>/public/admin/transactions/history.php" class="nav-link">
+        <a href="<?= BASE_URL ?>/public/admin/transactions/history.php" class="nav-link <?= isActive('/admin/transactions/history.php') ?>">
             <i class='bx bx-history'></i> Riwayat
         </a>
     </nav>

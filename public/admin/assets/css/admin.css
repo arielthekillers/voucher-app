@@ -152,6 +152,13 @@ ul {
     color: var(--primary);
 }
 
+.nav-link.active {
+    background-color: var(--primary);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2), 0 2px 4px -1px rgba(79, 70, 229, 0.1);
+}
+
 .nav-link i {
     font-size: 1.25rem;
 }

@@ -67,34 +67,36 @@ ul {
 }
 
 /* ===== SIDEBAR ===== */
+/* ===== SIDEBAR ===== */
 .sidebar {
     width: 260px;
     background: var(--bg-sidebar);
     border-right: 1px solid var(--border-color);
     position: fixed;
     height: 100vh;
-    overflow-y: auto;
+    overflow-y: hidden;
+    /* Changed from auto to hidden */
     transition: transform 0.3s ease;
     z-index: 50;
     display: flex;
     flex-direction: column;
 }
 
-/* Custom Scrollbar for Sidebar */
-.sidebar::-webkit-scrollbar {
+/* Custom Scrollbar for Sidebar Menu */
+.sidebar-menu::-webkit-scrollbar {
     width: 6px;
 }
 
-.sidebar::-webkit-scrollbar-track {
+.sidebar-menu::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.sidebar::-webkit-scrollbar-thumb {
+.sidebar-menu::-webkit-scrollbar-thumb {
     background-color: #e2e8f0;
     border-radius: 20px;
 }
 
-.sidebar::-webkit-scrollbar-thumb:hover {
+.sidebar-menu::-webkit-scrollbar-thumb:hover {
     background-color: #cbd5e1;
 }
 
@@ -104,6 +106,8 @@ ul {
     align-items: center;
     padding: 0 1.5rem;
     border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+    /* Prevent shrinking */
 }
 
 .brand-logo {
@@ -116,6 +120,8 @@ ul {
 .sidebar-menu {
     padding: 1.5rem 1rem;
     flex: 1;
+    overflow-y: auto;
+    /* Enable scroll here */
 }
 
 .menu-label {

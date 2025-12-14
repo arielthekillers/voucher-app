@@ -69,7 +69,7 @@ include ROOT_PATH . '/resources/views/layouts/sidebar.php';
     <div class="card" style="margin-bottom: 0;">
         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <div>
-                <div style="color: var(--text-muted); font-size: 0.875rem; font-weight: 500;">Points Distributed</div>
+                <div style="color: var(--text-muted); font-size: 0.875rem; font-weight: 500;"><?= CURRENCY_NAME ?> Distributed</div>
                 <div style="font-size: 1.5rem; font-weight: 700; margin-top: 0.25rem; color: #166534;">+<?= number_format($points_earned) ?></div>
             </div>
             <div style="background: #f0fdf4; color: #166534; padding: 0.5rem; border-radius: 0.5rem;">
@@ -82,7 +82,7 @@ include ROOT_PATH . '/resources/views/layouts/sidebar.php';
     <div class="card" style="margin-bottom: 0;">
         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <div>
-                <div style="color: var(--text-muted); font-size: 0.875rem; font-weight: 500;">Points Redeemed</div>
+                <div style="color: var(--text-muted); font-size: 0.875rem; font-weight: 500;"><?= CURRENCY_NAME ?> Redeemed</div>
                 <div style="font-size: 1.5rem; font-weight: 700; margin-top: 0.25rem; color: #dc2626;">-<?= number_format($points_redeemed) ?></div>
             </div>
             <div style="background: #fef2f2; color: #dc2626; padding: 0.5rem; border-radius: 0.5rem;">

@@ -39,7 +39,7 @@ if (!$p) exit('Promo tidak ditemukan');
         <label>Ganti Gambar</label>
         <input type="file" name="image">
 
-        <label>Point Dibutuhkan</label>
+        <label><?= CURRENCY_NAME ?> Dibutuhkan</label>
         <input type="number" name="point_cost" value="<?= $p['point_cost'] ?>" required>
 
         <label>Status</label>

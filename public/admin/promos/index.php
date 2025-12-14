@@ -33,7 +33,7 @@ $promos = $db->query("SELECT * FROM promos ORDER BY id DESC")->fetchAll();
                 <p class="promo-desc"><?= htmlspecialchars($p['description'] ?? 'Tidak ada deskripsi') ?></p>
                 
                 <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">
-                    <?= number_format($p['point_cost']) ?> Points
+                    <?= number_format($p['point_cost']) ?> <?= CURRENCY_NAME ?>
                 </div>
 
                 <div class="promo-footer">

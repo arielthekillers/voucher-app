@@ -58,10 +58,10 @@ $promos = $db->query("SELECT * FROM promos WHERE is_active = 1 ORDER BY point_co
         <p style="color: var(--text-muted); margin-bottom: 1.5rem;"><?= htmlspecialchars($customer['phone']) ?></p>
         
         <div style="display: inline-block; padding: 0.5rem 1rem; background: #eef2ff; color: var(--primary); border-radius: var(--radius); font-weight: 600; margin-bottom: 1.5rem;">
-            Current Points: <?= number_format($customer['current_points']) ?>
+            Current <?= CURRENCY_NAME ?>: <?= number_format($customer['current_points']) ?>
         </div>
 
-        <form action="redeem_store.php" method="POST" onsubmit="return confirm('Proses Redeem promo ini? Point customer akan dipotong.')">
+        <form action="redeem_store.php" method="POST" onsubmit="return confirm('Proses Redeem promo ini? <?= CURRENCY_NAME ?> customer akan dipotong.')">
             <input type="hidden" name="customer_id" value="<?= $customer['id'] ?>">
             
             <h4 style="margin-bottom: 1rem;">Pilih Promo</h4>
@@ -88,7 +88,7 @@ $promos = $db->query("SELECT * FROM promos WHERE is_active = 1 ORDER BY point_co
                             <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
                                 <h4 class="promo-title" style="font-size: 1rem; margin-bottom: 0;"><?= htmlspecialchars($p['title']) ?></h4>
                                 <div style="font-weight: 600; color: var(--primary); white-space: nowrap;">
-                                    <?= number_format($p['point_cost']) ?> Pts
+                                    <?= number_format($p['point_cost']) ?> <?= CURRENCY_NAME ?>
                                 </div>
                             </div>
                             <p class="promo-desc" style="font-size: 0.8rem; margin-bottom: 0;">

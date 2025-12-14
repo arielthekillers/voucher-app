@@ -51,7 +51,7 @@ $user = Auth::user();
         <div class="menu-label" style="margin-top: 1rem;">Transaction</div>
 
         <a href="<?= BASE_URL ?>/public/admin/transactions/earn.php" class="nav-link <?= isActive('/admin/transactions/earn.php') ?>">
-            <i class='bx bx-plus-circle'></i> Tambah Point
+            <i class='bx bx-plus-circle'></i> Tambah <?= CURRENCY_NAME ?>
         </a>
         <a href="<?= BASE_URL ?>/public/admin/transactions/redeem.php" class="nav-link <?= isActive('/admin/transactions/redeem.php') ?>">
             <i class='bx bx-gift'></i> Redeem Promo

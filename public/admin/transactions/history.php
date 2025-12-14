@@ -109,9 +109,9 @@ $transactions = $stmt->fetchAll();
                             <td style="text-align: right;">
                                 <?php if ($t['type'] === 'EARN'): ?>
                                     <div style="font-weight: 500;">Rp <?= number_format($t['purchase_amount']) ?></div>
-                                    <div style="color: #166534; font-size: 0.8rem;">+<?= number_format($t['point_amount']) ?> Pts</div>
+                                    <div style="color: #166534; font-size: 0.8rem;">+<?= number_format($t['point_amount']) ?> <?= CURRENCY_NAME ?></div>
                                 <?php else: ?>
-                                    <div style="color: #991b1b; font-weight: 500;">-<?= number_format($t['point_amount']) ?> Pts</div>
+                                    <div style="color: #991b1b; font-weight: 500;">-<?= number_format($t['point_amount']) ?> <?= CURRENCY_NAME ?></div>
                                 <?php endif; ?>
                             </td>
                             <td style="font-size: 0.875rem; color: var(--text-muted);">

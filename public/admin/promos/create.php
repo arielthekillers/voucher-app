@@ -20,7 +20,7 @@ auth_required();
         <label>Gambar (opsional)</label>
         <input type="file" name="image">
 
-        <label>Point Dibutuhkan</label>
+        <label><?= CURRENCY_NAME ?> Dibutuhkan</label>
         <input type="number" name="point_cost" required>
 
         <label>Status</label>

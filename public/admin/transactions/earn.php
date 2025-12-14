@@ -24,7 +24,7 @@ if ($q) {
 <?php include '../../../resources/views/layouts/header.php'; ?>
 <?php include '../../../resources/views/layouts/sidebar.php'; ?>
 
-<h2>Tambah Point</h2>
+<h2>Tambah <?= CURRENCY_NAME ?></h2>
 
 <div class="card">
     <form method="GET" style="display: flex; gap: 1rem;">
@@ -52,10 +52,10 @@ if ($q) {
             <label>Nominal Belanja</label>
             <input type="number" name="amount" required>
 
-            <label>Jumlah Point</label>
+            <label>Jumlah <?= CURRENCY_NAME ?></label>
             <input type="number" name="point" required>
 
-            <button type="submit" class="btn btn-primary">Simpan Point</button>
+            <button type="submit" class="btn btn-primary">Simpan <?= CURRENCY_NAME ?></button>
         </form>
     </div>
 <?php endif; ?>

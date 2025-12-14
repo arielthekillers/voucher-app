@@ -6,7 +6,8 @@
             "app/"
         ],
         "files": [
-            "app/config/app.php"
+            "app/config/app.php",
+            "app/middleware/auth.php"
         ]
     },
     "require": {}

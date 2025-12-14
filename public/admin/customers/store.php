@@ -1,9 +1,7 @@
 <?php
 session_start();
 
-require_once '../../../app/config/app.php';
-require_once '../../../app/core/Database.php';
-require_once '../../../app/middleware/auth.php';
+require_once '../../../vendor/autoload.php';
 
 auth_required();
 

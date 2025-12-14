@@ -1,10 +1,7 @@
 <?php
 session_start();
 
-require_once '../../app/config/app.php';
-require_once ROOT_PATH . '/app/core/Database.php';
-require_once ROOT_PATH . '/app/core/Auth.php';
-require_once ROOT_PATH . '/app/middleware/auth.php';
+require_once '../../vendor/autoload.php';
 
 auth_required();
 

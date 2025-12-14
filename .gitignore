@@ -34,16 +34,16 @@ storage/cache/
 
 
 # ===============================
-# Temporary / Seeder
+# Temporary / Deployed Assets
 # ===============================
+storage/uploads/*
+!storage/uploads/.gitignore
+
+# Keep keys private
 storage/seed_super_admin.php
-storage/uploads/promo
-
-
 
 # ===============================
 # Backup files
 # ===============================
 *.bak
 *.old
-/storage/uploads/promos

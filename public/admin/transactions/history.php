@@ -9,7 +9,8 @@ $db = Database::connect();
 
 // Filters
 $start_date = $_GET['start_date'] ?? date('Y-m-d', strtotime('-30 days'));
-$end_date   = $_GET['end_date'] ?? date('Y-m-d');
+// Use +1 day for end_date default to ensure we cover "today" even if PHP timezone is behind DB/Server time
+$end_date   = $_GET['end_date'] ?? date('Y-m-d', strtotime('+1 day'));
 $page       = (int) ($_GET['page'] ?? 1);
 $limit      = 20;
 $offset     = ($page - 1) * $limit;

@@ -14,7 +14,11 @@ define('ROOT_PATH', realpath(__DIR__ . '/../../'));
 // ========================
 // REQUIRING MIDDLEWARES/HELPERS
 // ========================
+require_once ROOT_PATH . '/app/core/DotEnv.php';
+(new DotEnv(ROOT_PATH . '/.env'))->load();
+
 require_once ROOT_PATH . '/app/middleware/CSRF.php';
+require_once ROOT_PATH . '/app/helpers/flash.php';
 
 // ========================
 // DB CONNECTION & SETTINGS

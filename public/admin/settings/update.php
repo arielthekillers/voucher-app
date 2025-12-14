@@ -9,6 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit('Invalid method');
 }
 
+CSRF::check($_POST['csrf_token'] ?? '');
+
 $db = Database::connect();
 
 // Whitelist allowed keys to prevent pollution

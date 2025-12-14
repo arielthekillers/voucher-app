@@ -12,6 +12,11 @@ define('APP_DEBUG', true);
 define('ROOT_PATH', realpath(__DIR__ . '/../../'));
 
 // ========================
+// REQUIRING MIDDLEWARES/HELPERS
+// ========================
+require_once ROOT_PATH . '/app/middleware/CSRF.php';
+
+// ========================
 // DB CONNECTION & SETTINGS
 // ========================
 $db_settings = [];

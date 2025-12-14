@@ -29,6 +29,7 @@ auth_required();
             <option value="0">Nonaktif</option>
         </select>
 
+        <?= csrf_field() ?>
         <button type="submit" class="btn btn-primary">Simpan</button>
     </form>
 </div>

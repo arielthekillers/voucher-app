@@ -48,6 +48,7 @@ if (!$p) exit('Promo tidak ditemukan');
             <option value="0" <?= !$p['is_active'] ? 'selected' : '' ?>>Nonaktif</option>
         </select>
 
+        <?= csrf_field() ?>
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>

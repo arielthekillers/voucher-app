@@ -34,6 +34,7 @@ $settings = $data; // format: ['key' => 'value']
 
     <!-- Tab Content -->
     <form action="update.php" method="POST" style="padding: 2rem;">
+        <?= csrf_field() ?>
         
         <!-- Bisnis Settings -->
         <div id="bisnis" class="tab-content">

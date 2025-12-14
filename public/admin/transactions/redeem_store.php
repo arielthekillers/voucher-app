@@ -9,6 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit('Invalid method');
 }
 
+CSRF::check($_POST['csrf_token'] ?? '');
+
 $customer_id = (int) $_POST['customer_id'];
 $promo_id    = (int) $_POST['promo_id'];
 

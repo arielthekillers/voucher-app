@@ -54,7 +54,8 @@ if ($q) {
 
             <label>Jumlah <?= CURRENCY_NAME ?></label>
             <input type="number" name="point" required>
-
+            
+            <?= csrf_field() ?>
             <button type="submit" class="btn btn-primary">Simpan <?= CURRENCY_NAME ?></button>
         </form>
     </div>

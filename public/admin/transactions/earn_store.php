@@ -5,6 +5,8 @@ require_once '../../../vendor/autoload.php';
 
 auth_required();
 
+CSRF::check($_POST['csrf_token'] ?? '');
+
 $customer_id = (int) $_POST['customer_id'];
 $purchase    = (float) $_POST['amount'];
 $point       = (int) $_POST['point'];

@@ -63,6 +63,7 @@ $promos = $db->query("SELECT * FROM promos WHERE is_active = 1 ORDER BY point_co
 
         <form action="redeem_store.php" method="POST" onsubmit="return confirm('Proses Redeem promo ini? <?= CURRENCY_NAME ?> customer akan dipotong.')">
             <input type="hidden" name="customer_id" value="<?= $customer['id'] ?>">
+            <?= csrf_field() ?>
             
             <h4 style="margin-bottom: 1rem;">Pilih Promo</h4>
             

@@ -2,6 +2,9 @@
 
 require_once __DIR__ . '/../core/Auth.php';
 
+/**
+ * Pastikan user sudah login
+ */
 function auth_required()
 {
     if (!Auth::check()) {
@@ -10,13 +13,16 @@ function auth_required()
     }
 }
 
-function super_admin_only()
+/**
+ * Batasi akses berdasarkan role
+ * contoh: role_required('super_admin')
+ */
+function role_required(string $role)
 {
     auth_required();
 
-    if (!Auth::role('super_admin')) {
+    if (!Auth::role($role)) {
         http_response_code(403);
-        echo "Akses ditolak";
-        exit;
+        exit('Forbidden - insufficient role');
     }
 }

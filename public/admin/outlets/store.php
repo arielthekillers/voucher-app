@@ -8,15 +8,16 @@ require_once '../../../app/middleware/auth.php';
 
 role_required('super_admin');
 
-$id = $_GET['id'] ?? null;
-if (!$id) {
-    header('Location: index.php');
-    exit;
-}
+$code = trim($_POST['outlet_code']);
+$name = trim($_POST['outlet_name']);
 
 $db = Database::connect();
-$stmt = $db->prepare("DELETE FROM outlets WHERE id = ?");
-$stmt->execute([$id]);
+
+$stmt = $db->prepare("
+    INSERT INTO outlets (outlet_code, outlet_name)
+    VALUES (?, ?)
+");
+$stmt->execute([$code, $name]);
 
 header('Location: index.php');
 exit;

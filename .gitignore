@@ -46,3 +46,4 @@ storage/uploads/promo
 # ===============================
 *.bak
 *.old
+/storage/uploads/promos

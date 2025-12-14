@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../../app/core/Auth.php';
+require_once '../../vendor/autoload.php';
 
 Auth::logout();
 

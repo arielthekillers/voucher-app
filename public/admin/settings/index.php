@@ -18,6 +18,10 @@ $settings = $data; // format: ['key' => 'value']
 
 <h2>Settings</h2>
 
+<div style="margin-bottom: 1.5rem;">
+    <?php flash_display(); ?>
+</div>
+
 <div class="card" style="padding: 0; overflow: hidden;">
     <!-- Tabs Header -->
     <div style="display: flex; border-bottom: 1px solid var(--border-color); background: #f9fafb;">

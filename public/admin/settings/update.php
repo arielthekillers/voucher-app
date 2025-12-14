@@ -42,10 +42,14 @@ try {
 
     $db->commit();
     
-    // Redirect with success (simplistic/naive implementation)
-    header('Location: index.php?status=success');
+    // Clear cache if needed or just redirect
+    flash('success', 'Settings updated successfully!');
+    header('Location: index.php');
+    exit;
 
 } catch (Exception $e) {
     $db->rollBack();
-    exit('Error saving settings: ' . $e->getMessage());
+    flash('error', 'Error updating settings: ' . $e->getMessage());
+    header('Location: index.php');
+    exit;
 }

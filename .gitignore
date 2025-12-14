@@ -37,6 +37,8 @@ storage/cache/
 # Temporary / Seeder
 # ===============================
 storage/seed_super_admin.php
+storage/uploads/promo
+
 
 
 # ===============================

@@ -34,8 +34,11 @@ $user = Auth::user();
             <a href="<?= BASE_URL ?>/public/admin/outlets/index.php" class="nav-link <?= isActive('/admin/outlets/') ?>">
                 <i class='bx bxs-store'></i> Master Outlet
             </a>
-            <a href="<?= BASE_URL ?>/public/admin/settings/index.php" class="nav-link <?= isActive('/admin/settings/') ?>">
-                <i class='bx bxs-cog'></i> Settings
+            <a href="<?= BASE_URL ?>/public/admin/settings/index.php" class="nav-link <?= isActive('/admin/settings/index.php') ?>">
+                <i class='bx bx-cog'></i> Settings
+            </a>
+            <a href="<?= BASE_URL ?>/public/admin/reports/index.php" class="nav-link <?= isActive('/admin/reports/index.php') ?>">
+                <i class='bx bx-bar-chart-alt-2'></i> Reports
             </a>
         <?php endif; ?>
 

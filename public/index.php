@@ -81,24 +81,30 @@ if ($phone) {
             --border: #e5e7eb;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body {
+        html, body {
             margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%; /* Lock height to viewport */
+            overflow: hidden; /* Prevent body scroll */
             font-family: 'Outfit', sans-serif;
             background: #f3f4f6;
             color: var(--text-main);
+        }
+        body {
             display: flex;
             justify-content: center;
-            min-height: 100vh;
         }
         .app-container {
             width: 100%;
             max-width: 480px; /* Mobile width constraint on desktop */
+            height: 100%; /* Fill viewport */
             background: #fff;
-            min-height: 100vh;
             position: relative;
             box-shadow: 0 0 20px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
+            overflow: hidden; /* Ensure content stays inside */
         }
 
         /* Login View */
@@ -168,15 +174,18 @@ if ($phone) {
         .dashboard-view {
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            height: 100%; /* Fill container */
+            overflow: hidden;
+            position: relative;
         }
         .content-area {
             flex: 1;
-            overflow-y: auto;
+            overflow-y: auto; /* Internal scroll */
             padding: 1.5rem;
             padding-bottom: 5rem; /* Space for navbar */
+            -webkit-overflow-scrolling: touch; /* Smooth scroll iOS */
         }
-        
+
         /* Loyalty Card */
         .loyalty-card {
             width: 100%;
@@ -307,10 +316,10 @@ if ($phone) {
 
         /* Bottom Nav */
         .navbar {
-            position: fixed;
+            position: absolute; /* Stick to bottom of .app-container */
             bottom: 0;
+            left: 0;
             width: 100%;
-            max-width: 480px;
             background: #fff;
             border-top: 1px solid var(--border);
             display: flex;

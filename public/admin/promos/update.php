@@ -43,10 +43,13 @@ if (!empty($_FILES['image']['name'])) {
     $params[] = $imageName;
 
     // Delete old image
-    // Note: $old_image needs to be fetched from the database before this point
-    // if ($old_image && file_exists('../../../storage/uploads/promos/' . $old_image)) {
-    //     unlink('../../../storage/uploads/promos/' . $old_image);
-    // }
+    $stmt_old = $db->prepare("SELECT image FROM promos WHERE id = ?");
+    $stmt_old->execute([$id]);
+    $old_image = $stmt_old->fetchColumn();
+
+    if ($old_image && file_exists('../../../storage/uploads/promos/' . $old_image)) {
+        unlink('../../../storage/uploads/promos/' . $old_image);
+    }
 }
 
 $params[] = $id;

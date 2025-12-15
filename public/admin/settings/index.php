@@ -37,12 +37,22 @@ $settings = $data; // format: ['key' => 'value']
     </div>
 
     <!-- Tab Content -->
-    <form action="update.php" method="POST" style="padding: 2rem;">
+    <form action="update.php" method="POST" enctype="multipart/form-data" style="padding: 2rem;">
         <?= csrf_field() ?>
         
         <!-- Bisnis Settings -->
         <div id="bisnis" class="tab-content">
             <h3 style="margin-bottom: 1.5rem;">Informasi Bisnis</h3>
+
+            <label>Logo Bisnis</label>
+            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                <?php if (!empty($settings['business_logo'])): ?>
+                    <img src="../../../storage/uploads/settings/<?= htmlspecialchars($settings['business_logo']) ?>" 
+                         alt="Business Logo" 
+                         style="max-width: 100px; max-height: 100px; border-radius: 8px; border: 1px solid var(--border-color);">
+                <?php endif; ?>
+                <input type="file" name="business_logo" accept="image/*">
+            </div>
             
             <label>Nama Bisnis</label>
             <input type="text" name="business_name" value="<?= htmlspecialchars($settings['business_name'] ?? '') ?>" placeholder="Contoh: My Awesome Store">

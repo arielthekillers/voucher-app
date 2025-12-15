@@ -445,6 +445,16 @@ if ($phone) {
                         <div style="font-weight: 600;"><?= date('M Y', strtotime($customer['created_at'])) ?></div>
                     </div>
                 </div>
+
+                <?php if (!empty($settings['google_review_link'])): ?>
+                    <a href="<?= htmlspecialchars($settings['google_review_link']) ?>" target="_blank" class="btn" style="margin-top: 1rem; background: #fff; border: 1px solid var(--border); color: var(--text-main); justify-content: space-between;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <i class='bx bxl-google' style="font-size: 1.5rem;"></i>
+                            <span>Review Kami di Google</span>
+                        </div>
+                        <i class='bx bx-chevron-right'></i>
+                    </a>
+                <?php endif; ?>
             </div>
 
             <div id="tab-promos" class="content-area hidden">

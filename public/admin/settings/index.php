@@ -60,6 +60,9 @@ $settings = $data; // format: ['key' => 'value']
             <label>Alamat</label>
             <textarea name="business_address" rows="3"><?= htmlspecialchars($settings['business_address'] ?? '') ?></textarea>
 
+            <label>Google Review Link</label>
+            <input type="url" name="google_review_link" value="<?= htmlspecialchars($settings['google_review_link'] ?? '') ?>" placeholder="https://g.page/r/...">
+
             <label>Email Owner / Kontak</label>
             <input type="email" name="business_email" value="<?= htmlspecialchars($settings['business_email'] ?? '') ?>">
 

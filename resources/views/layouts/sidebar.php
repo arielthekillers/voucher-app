@@ -1,12 +1,29 @@
 <?php
 $user = Auth::user(); 
+$db = Database::connect();
+$settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
 ?>
 
 <aside class="sidebar">
     <div class="sidebar-header">
-        <div class="brand-logo">
-            <i class='bx bxs-coupon'></i> <?= APP_NAME ?>
+        <div class="brand-logo" style="display: flex; align-items: center; gap: 10px;">
+            <?php if (!empty($settings['business_logo'])): ?>
+                <img src="<?= BASE_URL ?>/storage/uploads/settings/<?= htmlspecialchars($settings['business_logo']) ?>" 
+                     alt="Logo" 
+                     style="height: 40px; width: auto; max-width: 120px; object-fit: contain;">
+            <?php else: ?>
+                <i class='bx bxs-coupon' style="font-size: 24px;"></i>
+            <?php endif; ?>
+            
+            <?php if (empty($settings['business_logo'])): ?>
+                <?= htmlspecialchars($settings['business_name'] ?? APP_NAME) ?>
+            <?php endif; ?>
         </div>
+        <?php if (!empty($settings['business_logo'])): ?>
+            <div style="font-size: 0.8rem; font-weight: 600; color: #fff; margin-top: 5px;">
+                <?= htmlspecialchars($settings['business_name'] ?? APP_NAME) ?>
+            </div>
+        <?php endif; ?>
     </div>
 
     <?php

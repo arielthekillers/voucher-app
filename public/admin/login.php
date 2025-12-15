@@ -8,13 +8,16 @@ if (isset($_SESSION['user'])) {
 }
 
 $error = $_GET['error'] ?? null;
+
+$db = Database::connect();
+$settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login Admin - <?= APP_NAME ?></title>
+    <title>Login Admin - <?= htmlspecialchars($settings['business_name'] ?? APP_NAME) ?></title>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/admin/assets/css/admin.css">
     <style>
@@ -39,10 +42,16 @@ $error = $_GET['error'] ?? null;
             text-align: center;
             margin-bottom: 2rem;
         }
+        .login-header img {
+            max-height: 80px;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
         .login-header h2 {
             font-size: 1.5rem;
             font-weight: 700;
             color: #111827;
+            margin-bottom: 0.5rem;
         }
         .alert-error {
             background: #fef2f2;
@@ -59,8 +68,12 @@ $error = $_GET['error'] ?? null;
 
 <div class="login-card">
     <div class="login-header">
-        <h2>Login Admin</h2>
-        <p style="color: #6b7280; font-size: 0.875rem;">Masuk untuk mengelola aplikasi</p>
+        <?php if (!empty($settings['business_logo'])): ?>
+            <img src="<?= BASE_URL ?>/storage/uploads/settings/<?= htmlspecialchars($settings['business_logo']) ?>" alt="Logo">
+        <?php endif; ?>
+        
+        <h2><?= htmlspecialchars($settings['business_name'] ?? 'Login Admin') ?></h2>
+        <p style="color: #6b7280; font-size: 0.875rem;">Masuk untuk mengelola <?= htmlspecialchars($settings['business_name'] ?? 'aplikasi') ?></p>
     </div>
 
     <?php if ($error): ?>

@@ -185,21 +185,25 @@ if ($phone) {
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
             margin-bottom: 2rem;
             position: relative;
+            /* Standard credit card ratio approx 1.58, let's try to mimic that look */
+            aspect-ratio: 1.58/1; 
+            display: flex;
+            flex-direction: column;
         }
         .card-top {
-            height: 180px; /* Approx 30% of typical screen height feel, fixed for consistency */
+            flex: 1; /* Take available space */
             background: var(--gold-gradient);
-            padding: 1.5rem;
+            padding: 1.25rem;
             display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
+            align-items: center;
+            justify-content: center;
             color: #000;
         }
         .card-bottom {
             background: #1f1f1f; /* Dark Grey/Black */
-            padding: 1.5rem;
+            padding: 1.25rem;
             color: #fff;
-            min-height: 120px;
+            height: 40%; /* Fixed proportion for bottom part */
         }
         .card-label {
             font-size: 0.75rem;
@@ -354,7 +358,7 @@ if ($phone) {
             <?php endif; ?>
             
             <h2 style="margin-bottom: 0.5rem;">Selamat Datang</h2>
-            <p style="color: var(--text-muted); margin-bottom: 2rem;">Masukkan nomor HP untuk melihat member card</p>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Masukkan nomor HP untuk melihat Loyalty E-Card</p>
             
             <form action="" method="GET" style="width: 100%;">
                 <div class="input-group">
@@ -362,7 +366,7 @@ if ($phone) {
                     <input type="tel" name="phone" class="form-input" placeholder="08xxxxxxxxxx" required autofocus>
                 </div>
                 <button type="submit" class="btn btn-primary">
-                    Lihat Member Card <i class='bx bx-right-arrow-alt'></i>
+                    Lihat Loyalty E-Card <i class='bx bx-right-arrow-alt'></i>
                 </button>
             </form>
         </div>
@@ -392,15 +396,15 @@ if ($phone) {
             
             <!-- TABS CONTENT -->
             <div id="tab-home" class="content-area">
-                <h3 style="margin-top: 0; margin-bottom: 1.5rem;">Member Card</h3>
+                <h3 style="margin-top: 0; margin-bottom: 1.5rem;">LOYALTY E-CARD</h3>
                 
                 <div class="loyalty-card">
                     <div class="card-top">
                         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; text-align: center;">
-                            <div style="font-weight: 700; font-size: 1.2rem; margin-bottom: 0.5rem;"><?= htmlspecialchars($businessName) ?></div>
                             <?php if ($businessLogo): ?>
-                                <img src="../storage/uploads/settings/<?= htmlspecialchars($businessLogo) ?>" style="height: 60px; width: auto; max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                                <img src="../storage/uploads/settings/<?= htmlspecialchars($businessLogo) ?>" style="height: 50px; width: auto; max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 0.5rem;">
                             <?php endif; ?>
+                            <div style="font-weight: 700; font-size: 1.1rem;"><?= htmlspecialchars($businessName) ?></div>
                         </div>
                     </div>
                     <div class="card-bottom">

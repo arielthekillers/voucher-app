@@ -1,5 +1,5 @@
 <?php
-$user = Auth::user(); 
+$current_user = Auth::user(); 
 $db = Database::connect();
 $settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
 ?>
@@ -42,7 +42,7 @@ $settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
             <i class='bx bxs-dashboard'></i> Dashboard
         </a>
 
-        <?php if ($user && $user['role'] === 'super_admin'): ?>
+        <?php if ($current_user && $current_user['role'] === 'super_admin'): ?>
             <div class="menu-label" style="margin-top: 1rem;">Admin</div>
             
             <a href="<?= BASE_URL ?>/public/admin/users/index.php" class="nav-link <?= isActive('/admin/users/') ?>">
@@ -99,11 +99,11 @@ $settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
         
         <div style="display: flex; align-items: center; gap: 0.5rem;">
             <div style="text-align: right;">
-                <div style="font-weight: 600; font-size: 0.9rem;"><?= htmlspecialchars($user['name'] ?? 'User') ?></div>
-                <div style="font-size: 0.75rem; color: var(--text-muted);"><?= ucfirst($user['role'] ?? '') ?></div>
+                <div style="font-weight: 600; font-size: 0.9rem;"><?= htmlspecialchars($current_user['name'] ?? 'User') ?></div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);"><?= ucfirst($current_user['role'] ?? '') ?></div>
             </div>
             <div style="width: 36px; height: 36px; background: var(--primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
-                <?= substr($user['name'] ?? 'U', 0, 1) ?>
+                <?= substr($current_user['name'] ?? 'U', 0, 1) ?>
             </div>
         </div>
     </header>

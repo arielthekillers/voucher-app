@@ -2,6 +2,7 @@
 session_start();
 require_once '../../../vendor/autoload.php';
 auth_required();
+role_required('super_admin');
 ?>
 
 <?php include '../../../resources/views/layouts/header.php'; ?>

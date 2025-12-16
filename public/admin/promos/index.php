@@ -13,9 +13,11 @@ $promos = $db->query("SELECT * FROM promos ORDER BY id DESC")->fetchAll();
 <?php include '../../../resources/views/layouts/sidebar.php'; ?>
 
 <h2>Promo</h2>
-<a href="create.php" class="btn btn-primary" style="margin-bottom: 1rem;">
-    <i class='bx bx-plus'></i> Tambah Promo
-</a>
+<?php if (Auth::role('super_admin')): ?>
+    <a href="create.php" class="btn btn-primary" style="margin-bottom: 1rem;">
+        <i class='bx bx-plus'></i> Tambah Promo
+    </a>
+<?php endif; ?>
 
 <div class="promo-grid">
     <?php foreach ($promos as $p): ?>
@@ -41,16 +43,18 @@ $promos = $db->query("SELECT * FROM promos ORDER BY id DESC")->fetchAll();
                         <?= $p['is_active'] ? 'Aktif' : 'Nonaktif' ?>
                     </span>
                     
-                    <div style="display: flex; gap: 0.5rem;">
-                        <a href="edit.php?id=<?= $p['id'] ?>" class="btn btn-sm btn-primary">
-                            <i class='bx bx-edit'></i>
-                        </a>
-                        <a href="delete.php?id=<?= $p['id'] ?>" 
-                           class="btn btn-sm btn-danger"
-                           onclick="return confirm('Hapus promo ini?')">
-                            <i class='bx bx-trash'></i>
-                        </a>
-                    </div>
+                    <?php if (Auth::role('super_admin')): ?>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <a href="edit.php?id=<?= $p['id'] ?>" class="btn btn-sm btn-primary">
+                                <i class='bx bx-edit'></i>
+                            </a>
+                            <a href="delete.php?id=<?= $p['id'] ?>" 
+                               class="btn btn-sm btn-danger"
+                               onclick="return confirm('Hapus promo ini?')">
+                                <i class='bx bx-trash'></i>
+                            </a>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

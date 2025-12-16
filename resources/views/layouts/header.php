@@ -1,5 +1,5 @@
 <?php
-$user = $_SESSION['user'] ?? null;
+$current_user = $_SESSION['user'] ?? null;
 ?>
 <!DOCTYPE html>
 <html lang="id">

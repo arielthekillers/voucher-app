@@ -17,6 +17,8 @@ $customer = null;
 $promos = [];
 $history = [];
 $error = null;
+$registrationSuccess = isset($_SESSION['registration_success']) ? $_SESSION['registration_success'] : false;
+unset($_SESSION['registration_success']);
 
 if ($phone) {
     // Basic sanitization
@@ -361,13 +363,20 @@ if ($phone) {
         <!-- LOGIN VIEW -->
         <div class="login-view">
             <?php if ($businessLogo): ?>
-                <img src="../storage/uploads/settings/<?= htmlspecialchars($businessLogo) ?>" alt="Logo" class="logo-img">
+                <img src="storage/uploads/settings/<?= htmlspecialchars($businessLogo) ?>" alt="Logo" class="logo-img">
             <?php else: ?>
                 <div style="font-size: 2rem; margin-bottom: 1rem; font-weight: bold;"><?= htmlspecialchars($businessName) ?></div>
             <?php endif; ?>
             
             <h2 style="margin-bottom: 0.5rem;">Selamat Datang</h2>
             <p style="color: var(--text-muted); margin-bottom: 2rem;">Masukkan nomor HP untuk melihat Loyalty E-Card</p>
+            
+            <?php if ($registrationSuccess): ?>
+                <div style="width: 100%; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class='bx bxs-check-circle'></i>
+                    <span>Pendaftaran berhasil! Silakan login dengan nomor HP Anda.</span>
+                </div>
+            <?php endif; ?>
             
             <form action="" method="GET" style="width: 100%;">
                 <div class="input-group">
@@ -378,6 +387,10 @@ if ($phone) {
                     Lihat Loyalty E-Card <i class='bx bx-right-arrow-alt'></i>
                 </button>
             </form>
+            
+            <div style="margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem;">
+                Belum punya akun? <a href="register.php" style="color: var(--primary); text-decoration: none; font-weight: 500;">Daftar di sini</a>
+            </div>
         </div>
 
     <?php elseif ($error || !$customer): ?>
@@ -388,6 +401,10 @@ if ($phone) {
             <p style="color: var(--text-muted); margin-bottom: 2rem;">
                 Nomor <strong><?= htmlspecialchars($phone) ?></strong> belum terdaftar sebagai member kami.
             </p>
+            
+            <a href="register.php" class="btn btn-primary" style="margin-bottom: 1rem;">
+                <i class='bx bx-user-plus'></i> Daftar Sekarang
+            </a>
             
             <a href="?phone=" class="btn" style="border: 1px solid var(--border); margin-bottom: 1rem;">Coba Nomor Lain</a>
             
@@ -411,7 +428,7 @@ if ($phone) {
                     <div class="card-top">
                         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; text-align: center;">
                             <?php if ($businessLogo): ?>
-                                <img src="../storage/uploads/settings/<?= htmlspecialchars($businessLogo) ?>" style="height: 50px; width: auto; max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 0.5rem;">
+                                <img src="storage/uploads/settings/<?= htmlspecialchars($businessLogo) ?>" style="height: 50px; width: auto; max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 0.5rem;">
                             <?php endif; ?>
                             <div style="font-weight: 700; font-size: 1.1rem;"><?= htmlspecialchars($businessName) ?></div>
                         </div>
@@ -471,7 +488,7 @@ if ($phone) {
                         ?>
                         <div class="promo-card <?= !$canRedeem ? 'disabled' : '' ?>">
                             <?php if($promo['image']): ?>
-                                <img src="../storage/uploads/promos/<?= htmlspecialchars($promo['image']) ?>" class="promo-img">
+                                <img src="storage/uploads/promos/<?= htmlspecialchars($promo['image']) ?>" class="promo-img">
                             <?php else: ?>
                                 <div class="promo-img" style="display: flex; align-items: center; justify-content: center; color: #ccc;">No Image</div>
                             <?php endif; ?>

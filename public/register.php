@@ -195,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="app-container">
     <div class="register-view">
         <?php if ($businessLogo): ?>
-            <img src="storage/uploads/settings/<?= htmlspecialchars($businessLogo) ?>" alt="Logo" class="logo-img">
+            <img src="/storage/uploads/settings/<?= htmlspecialchars($businessLogo) ?>" alt="Logo" class="logo-img">
         <?php else: ?>
             <div style="font-size: 2rem; margin-bottom: 1rem; font-weight: bold;"><?= htmlspecialchars($businessName) ?></div>
         <?php endif; ?>

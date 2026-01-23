@@ -6,7 +6,7 @@ class Database {
 
     private function __construct() {
         // Load config
-        $config = require __DIR__ . '/../../app/config/Database.php';
+        $config = require __DIR__ . '/../../app/config/database.php';
 
         $dsn = "mysql:host={$config['host']};dbname={$config['db']};charset={$config['charset']}";
         $options = [

@@ -6,6 +6,11 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+// Fallback: If config/app.php wasn't autoloaded (old vendor dir), load it manually
+if (!defined('BASE_URL')) {
+    require_once __DIR__ . '/../app/config/app.php';
+}
+
 $db = Database::connect();
 
 // Fetch Settings
@@ -432,7 +437,7 @@ if ($phone) {
                     <div class="card-top">
                         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; text-align: center;">
                             <?php if ($businessLogo): ?>
-                                <img src="storage/uploads/settings/<?= htmlspecialchars($businessLogo) ?>" style="height: 50px; width: auto; max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 0.5rem;">
+                                <img src="<?= BASE_URL ?>/storage/uploads/settings/<?= htmlspecialchars($businessLogo) ?>" style="height: 50px; width: auto; max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 0.5rem;">
                             <?php endif; ?>
                             <div style="font-weight: 700; font-size: 1.1rem;"><?= htmlspecialchars($businessName) ?></div>
                         </div>
@@ -492,7 +497,7 @@ if ($phone) {
                         ?>
                         <div class="promo-card <?= !$canRedeem ? 'disabled' : '' ?>">
                             <?php if($promo['image']): ?>
-                                <img src="storage/uploads/promos/<?= htmlspecialchars($promo['image']) ?>" class="promo-img">
+                                <img src="<?= BASE_URL ?>/storage/uploads/promos/<?= htmlspecialchars($promo['image']) ?>" class="promo-img">
                             <?php else: ?>
                                 <div class="promo-img" style="display: flex; align-items: center; justify-content: center; color: #ccc;">No Image</div>
                             <?php endif; ?>

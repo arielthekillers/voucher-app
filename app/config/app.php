@@ -46,8 +46,23 @@ date_default_timezone_set(TIMEZONE);
 // ========================
 // BASE URL
 // ========================
-// Sesuaikan jika pakai subfolder
-define('BASE_URL', '/voucher');
+// Sesuaikan jika pakai subfolder, deteksi otomatis
+$scriptName = $_SERVER['SCRIPT_NAME'];
+
+// We want the root folder containing 'public'
+// Example: /voucher/public/admin/login.php -> should become /voucher
+// Example: /public/admin/login.php -> should become "" (empty)
+
+if (strpos($scriptName, '/public/') !== false) {
+    // Take everything before '/public/'
+    $base = strstr($scriptName, '/public/', true);
+} else {
+    // Fallback: use directory name (though this might cause issues if not in public)
+    $dirName = dirname($scriptName);
+    $base = ($dirName === '/' || $dirName === '\\') ? '' : $dirName;
+}
+
+define('BASE_URL', $base);
 // ========================
 
 

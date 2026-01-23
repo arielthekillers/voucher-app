@@ -76,15 +76,9 @@ $settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
         <p style="color: #6b7280; font-size: 0.875rem;">Masuk untuk mengelola <?= htmlspecialchars($settings['business_name'] ?? 'aplikasi') ?></p>
     </div>
 
-    <?php if ($error): ?>
-        <div class="alert-error">
-            <?php
-            if ($error === 'invalid') echo 'Username atau password salah';
-            elseif ($error === 'empty') echo 'Form tidak boleh kosong';
-            else echo htmlspecialchars($error);
-            ?>
-        </div>
-    <?php endif; ?>
+    <?php include '../../resources/views/layouts/flash_messages.php'; ?>
+
+    <!-- Old alerts removed -->
 
     <form method="post" action="process_login.php">
         <label>Username</label>

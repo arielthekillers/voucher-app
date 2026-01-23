@@ -18,7 +18,9 @@ $user = Auth::user();
 
 /* VALIDASI USER HARUS PUNYA OUTLET */
 if (empty($user['outlet_id'])) {
-    exit('Akun ini tidak terikat ke outlet');
+    $_SESSION['flash_error'] = "Akun ini tidak terikat ke outlet";
+    header('Location: redeem.php');
+    exit;
 }
 
 $db = Database::connect();
@@ -29,7 +31,9 @@ $c->execute([$customer_id]);
 $customer = $c->fetch(PDO::FETCH_ASSOC);
 
 if (!$customer) {
-    exit('Customer tidak ditemukan');
+    $_SESSION['flash_error'] = "Customer tidak ditemukan";
+    header('Location: redeem.php');
+    exit;
 }
 
 /* CEK POINT CUSTOMER */
@@ -49,12 +53,16 @@ $p->execute([$promo_id]);
 $promo = $p->fetch(PDO::FETCH_ASSOC);
 
 if (!$promo) {
-    exit('Promo tidak valid atau nonaktif');
+    $_SESSION['flash_error'] = "Promo tidak valid atau nonaktif";
+    header('Location: redeem.php');
+    exit;
 }
 
 /* VALIDASI POINT CUKUP */
 if ($balance < $promo['point_cost']) {
-    exit('Point customer tidak mencukupi');
+    $_SESSION['flash_error'] = "Point customer tidak mencukupi";
+    header('Location: redeem.php?q=' . urlencode($customer['name']));
+    exit;
 }
 
 /* SNAPSHOT OUTLET */
@@ -63,7 +71,9 @@ $o->execute([$user['outlet_id']]);
 $outlet = $o->fetch(PDO::FETCH_ASSOC);
 
 if (!$outlet) {
-    exit('Outlet tidak valid');
+    $_SESSION['flash_error'] = "Outlet tidak valid";
+    header('Location: redeem.php');
+    exit;
 }
 
 /* INSERT TRANSAKSI REDEEM */
@@ -106,5 +116,6 @@ if (isset($customer['phone'])) {
 }
 
 // Redirect to history or back with success
-header('Location: redeem.php?customer=' . urlencode($customer['name']) . '&status=redeem_success');
+$_SESSION['flash_success'] = "Redeem berhasil! Point customer telah dipotong.";
+header('Location: redeem.php?q=' . urlencode($customer['name']));
 exit;

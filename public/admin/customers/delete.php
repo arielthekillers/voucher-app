@@ -63,42 +63,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_delete'])) {
 
 // 4. Render View (Confirmation Page)
 $pageTitle = "Hapus Pelanggan";
-require_once '../../../resources/views/header.php';
-require_once '../../../resources/views/sidebar.php';
+require_once '../../../resources/views/layouts/header.php';
+require_once '../../../resources/views/layouts/sidebar.php';
 ?>
 
-<div class="main-content">
-    <div class="page-header">
-        <div>
-            <h3>Hapus Pelanggan</h3>
-            <p>Konfirmasi penghapusan data pelanggan</p>
-        </div>
-        <a href="index.php" class="btn btn-outline">
-            <i class='bx bx-arrow-back'></i> Kembali
-        </a>
-    </div>
+<div style="max-width: 500px; margin: 2rem auto;">
+    
+    <!-- Link Kembali removed as requested -->
 
     <?php if (isset($error)): ?>
-        <div class="alert alert-danger" style="margin-bottom: 1.5rem;">
+        <div style="background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class='bx bxs-error-circle'></i>
             <?= htmlspecialchars($error) ?>
         </div>
     <?php endif; ?>
 
-    <div class="card" style="max-width: 600px; margin: 0 auto; text-align: center; padding: 3rem 2rem;">
+    <div style="background: #fff; border-radius: 16px; padding: 2.5rem; text-align: center; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); border: 1px solid #e5e7eb;">
         
-        <div style="background: #fee2e2; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #dc2626;">
-            <i class='bx bx-trash' style="font-size: 3rem;"></i>
+        <div style="background: #fee2e2; width: 72px; height: 72px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #dc2626;">
+            <i class='bx bx-trash' style="font-size: 2.5rem;"></i>
         </div>
 
-        <h2 style="margin-bottom: 1rem; color: #dc2626;">Hapus Pelanggan?</h2>
+        <h2 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 1.5rem; color: #111827;">Hapus Pelanggan?</h2>
         
-        <p style="color: #4b5563; font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.6;">
-            Anda akan menghapus data pelanggan <strong><?= htmlspecialchars($customer['name']) ?></strong> 
+        <p style="color: #6b7280; font-size: 1rem; margin-bottom: 2rem; line-height: 1.5;">
+            Anda akan menghapus data pelanggan <br>
+            <strong style="color: #111827;"><?= htmlspecialchars($customer['name']) ?></strong> 
             (<?= htmlspecialchars($customer['phone']) ?>).
         </p>
 
-        <div style="background: #f9fafb; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; text-align: left; border: 1px solid #e5e7eb;">
-            <h4 style="margin-top: 0; margin-bottom: 1rem; font-size: 0.95rem; text-transform: uppercase; color: #6b7280; letter-spacing: 0.5px;">Statistik Pelanggan</h4>
+        <div style="background: #f9fafb; border-radius: 12px; padding: 1.25rem; margin-bottom: 2rem; text-align: left; border: 1px solid #f3f4f6;">
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: #9ca3af; letter-spacing: 1px; font-weight: 600; margin-bottom: 1rem;">Statistik Pelanggan</div>
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                 <div>
@@ -107,24 +102,24 @@ require_once '../../../resources/views/sidebar.php';
                 </div>
                 <div>
                     <div style="font-size: 0.85rem; color: #6b7280;">Total Transaksi</div>
-                    <div style="font-size: 1.25rem; font-weight: 600;"><?= number_format($stats['total_trx']) ?></div>
+                    <div style="font-size: 1.25rem; font-weight: 600; color: #111827;"><?= number_format($stats['total_trx']) ?></div>
                 </div>
             </div>
         </div>
 
-        <div class="alert alert-warning" style="text-align: left; display: flex; gap: 0.75rem; margin-bottom: 2rem;">
-            <i class='bx bx-error-circle' style="font-size: 1.5rem; flex-shrink: 0;"></i>
-            <div>
-                <strong>Perhatian:</strong><br>
-                Menghapus data pelanggan ini akan turut menghapus seluruh riwayat transaksi dan poin yang dimilikinya secara permanen. Tindakan ini tidak dapat dibatalkan.
+        <div style="background: #fff5f5; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; text-align: left; display: flex; gap: 0.75rem; margin-bottom: 2rem; align-items: start;">
+            <i class='bx bx-error-circle' style="font-size: 1.25rem; color: #dc2626; flex-shrink: 0; margin-top: 2px;"></i>
+            <div style="color: #991b1b; font-size: 0.85rem; line-height: 1.5;">
+                <strong>Peringatan Penting:</strong><br>
+                Tindakan ini akan menghapus seluruh data transaksi, poin, dan riwayat penukaran pelanggan ini secara permanen. Data yang dihapus tidak dapat dikembalikan.
             </div>
         </div>
 
         <form action="" method="POST">
-            <button type="submit" name="confirm_delete" class="btn" style="background: #dc2626; color: white; width: 100%; justify-content: center; padding: 1rem; font-size: 1rem;">
-                Ya, Hapus Permanen
+            <button type="submit" name="confirm_delete" class="btn" style="background: #dc2626; color: white; width: 100%; justify-content: center; padding: 0.875rem; font-size: 1rem; border-radius: 10px; border: none; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+                Hapus Pelanggan
             </button>
-            <a href="index.php" class="btn" style="background: white; border: 1px solid #d1d5db; color: #374151; width: 100%; justify-content: center; margin-top: 0.75rem; padding: 1rem; font-size: 1rem;">
+            <a href="index.php" style="display: block; width: 100%; padding: 0.875rem; margin-top: 0.75rem; color: #4b5563; text-decoration: none; font-weight: 500;">
                 Batal
             </a>
         </form>
@@ -132,4 +127,4 @@ require_once '../../../resources/views/sidebar.php';
     </div>
 </div>
 
-<?php require_once '../../../resources/views/footer.php'; ?>
+<?php require_once '../../../resources/views/layouts/footer.php'; ?>

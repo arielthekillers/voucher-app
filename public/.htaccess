@@ -2,3 +2,12 @@ RewriteEngine On
 
 # Route /storage/... requests to serve_image.php
 RewriteRule ^storage/(.*)$ serve_image.php?path=$1 [L,QSA]
+
+# Handle Authorization Header
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# Standard Routing to index.php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]

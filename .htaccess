@@ -1,7 +1,5 @@
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    
-    RewriteRule ^public$ public/ [L,R=301]
+RewriteEngine On
+    RewriteBase /
 
     # Add trailing slash to directories
     RewriteCond %{REQUEST_FILENAME} -d

@@ -21,6 +21,8 @@ $customers = $stmt->fetchAll();
 <?php include '../../../resources/views/layouts/header.php'; ?>
 <?php include '../../../resources/views/layouts/sidebar.php'; ?>
 
+
+
 <h2>Customer</h2>
 
 <form method="GET" style="display: flex; gap: 1rem; align-items: center; background: #fff; padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);">

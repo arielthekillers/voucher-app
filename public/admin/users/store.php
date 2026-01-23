@@ -19,5 +19,6 @@ $stmt = $db->prepare("
 ");
 $stmt->execute([$name, $user, $pass, $role, $outlet]);
 
+$_SESSION['flash_success'] = "User berhasil ditambahkan.";
 header('Location: index.php');
 exit;

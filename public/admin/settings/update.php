@@ -63,14 +63,14 @@ if (!empty($_FILES['business_logo']['name'])) {
                 unlink($uploadDir . $oldLogo);
             }
         } else {
-            flash('error', 'Failed to upload file.');
+            $_SESSION['flash_error'] = "Failed to upload file.";
             header('Location: index.php');
             exit;
         }
     } catch (Exception $e) {
         // Continue but maybe log error? 
         // For now just fail upload
-        flash('error', 'Database error during upload check.');
+        $_SESSION['flash_error'] = "Database error during upload check.";
         header('Location: index.php');
         exit;
     }
@@ -99,13 +99,13 @@ try {
     $db->commit();
     
     // Clear cache if needed or just redirect
-    flash('success', 'Settings updated successfully!');
+    $_SESSION['flash_success'] = "Settings updated successfully!";
     header('Location: index.php');
     exit;
 
 } catch (Exception $e) {
     $db->rollBack();
-    flash('error', 'Error updating settings: ' . $e->getMessage());
+    $_SESSION['flash_error'] = "Error updating settings: " . $e->getMessage();
     header('Location: index.php');
     exit;
 }

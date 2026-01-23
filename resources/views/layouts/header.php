@@ -31,5 +31,7 @@ $current_user = $_SESSION['user'] ?? null;
 
 <body>
 
+    <?php include __DIR__ . '/flash_messages.php'; ?>
+
     <div class="app-container">
         <!-- Sidebar is included in separate file, but it sits inside app-container logically or before main content -->

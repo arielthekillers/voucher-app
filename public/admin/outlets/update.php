@@ -10,7 +10,9 @@ $code = trim($_POST['outlet_code'] ?? '');
 $name = trim($_POST['outlet_name'] ?? '');
 
 if (!$id || !$code || !$name) {
-    die('Data tidak lengkap');
+    $_SESSION['flash_error'] = "Data tidak lengkap";
+    header('Location: edit.php?id=' . $id);
+    exit;
 }
 
 $db = Database::connect();
@@ -22,5 +24,6 @@ $stmt = $db->prepare("
 ");
 $stmt->execute([$code, $name, $id]);
 
+$_SESSION['flash_success'] = "Outlet berhasil diperbarui.";
 header('Location: index.php');
 exit;

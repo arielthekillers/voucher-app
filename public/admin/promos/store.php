@@ -27,11 +27,15 @@ if (!empty($_FILES['image']['name'])) {
     $ext   = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 
     if (!in_array($mime, $allowedMimes) || !in_array($ext, $allowedExts)) {
-        die('Invalid file type. Only JPG, PNG, GIF, WEBP allowed.');
+        $_SESSION['flash_error'] = "File tidak valid. Hanya JPG, PNG, GIF, WEBP yang diperbolehkan.";
+        header('Location: create.php');
+        exit;
     }
 
     if ($file['size'] > 5 * 1024 * 1024) { // 5MB limit
-        die('File too large. Max 5MB.');
+        $_SESSION['flash_error'] = "File terlalu besar. Maksimal 5MB.";
+        header('Location: create.php');
+        exit;
     }
 
     $imageName = time() . '_' . bin2hex(random_bytes(8)) . '.' . $ext;
@@ -49,5 +53,6 @@ $stmt = $db->prepare("
 ");
 $stmt->execute([$title, $desc, $imageName, $point, $active]);
 
+$_SESSION['flash_success'] = "Promo berhasil ditambahkan.";
 header('Location: index.php');
 exit;

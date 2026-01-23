@@ -15,5 +15,6 @@ $db = Database::connect();
 $stmt = $db->prepare("DELETE FROM outlets WHERE id = ?");
 $stmt->execute([$id]);
 
+$_SESSION['flash_success'] = "Outlet berhasil dihapus.";
 header('Location: index.php');
 exit;

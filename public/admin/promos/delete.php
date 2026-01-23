@@ -32,15 +32,15 @@ try {
         }
     }
 
-    flash('success', 'Promo berhasil dihapus');
+    $_SESSION['flash_success'] = "Promo berhasil dihapus.";
     header('Location: index.php');
     exit;
 
 } catch (PDOException $e) {
     if ($e->getCode() == '23000') {
-        flash('error', 'Gagal menghapus: Promo ini sudah digunakan dalam transaksi.');
+        $_SESSION['flash_error'] = "Gagal menghapus: Promo ini sudah digunakan dalam transaksi.";
     } else {
-        flash('error', 'Gagal menghapus: ' . $e->getMessage());
+        $_SESSION['flash_error'] = "Gagal menghapus: " . $e->getMessage();
     }
     header('Location: index.php');
     exit;

@@ -6,10 +6,16 @@ require_once '../../../vendor/autoload.php';
 auth_required();
 
 $id    = $_POST['id'];
-$name  = trim($_POST['name']);
-$phone = trim($_POST['phone']);
+$name  = trim($_POST['name'] ?? '');
+$phone = trim($_POST['phone'] ?? '');
 
 $db = Database::connect();
+
+if (!$name || !$phone) {
+    $_SESSION['flash_error'] = "Nama dan Nomor HP wajib diisi.";
+    header('Location: edit.php?id=' . $id);
+    exit;
+}
 
 /* Cegah duplikat nomor */
 $check = $db->prepare("
@@ -18,7 +24,9 @@ $check = $db->prepare("
 $check->execute([$phone, $id]);
 
 if ($check->fetch()) {
-    exit('Nomor HP sudah digunakan customer lain');
+    $_SESSION['flash_error'] = "Nomor HP sudah digunakan customer lain.";
+    header('Location: edit.php?id=' . $id);
+    exit;
 }
 
 $stmt = $db->prepare("
@@ -27,5 +35,6 @@ $stmt = $db->prepare("
 ");
 $stmt->execute([$name, $phone, $id]);
 
+$_SESSION['flash_success'] = "Data Customer berhasil diperbarui.";
 header('Location: index.php');
 exit;

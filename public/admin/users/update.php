@@ -33,5 +33,6 @@ if (!empty($pass)) {
     $stmt->execute([$name, $user, $role, $outlet, $status, $id]);
 }
 
+$_SESSION['flash_success'] = "User berhasil diperbarui.";
 header('Location: index.php');
 exit;

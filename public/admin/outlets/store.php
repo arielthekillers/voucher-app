@@ -16,5 +16,6 @@ $stmt = $db->prepare("
 ");
 $stmt->execute([$code, $name]);
 
+$_SESSION['flash_success'] = "Outlet berhasil ditambahkan.";
 header('Location: index.php');
 exit;

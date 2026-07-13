@@ -32,17 +32,21 @@ if (!$outlet) {
         <?= csrf_field() ?>
         <input type="hidden" name="id" value="<?= $outlet['id'] ?>">
 
-        <label>Kode Outlet</label>
-        <input type="text" name="outlet_code"
-            value="<?= htmlspecialchars($outlet['outlet_code']) ?>" required>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Kode Outlet</label>
+                <input type="text" name="outlet_code" value="<?= htmlspecialchars($outlet['outlet_code']) ?>" readonly title="Kode Outlet tidak dapat diubah">
+            </div>
 
-        <label>Nama Outlet</label>
-        <input type="text" name="outlet_name"
-            value="<?= htmlspecialchars($outlet['outlet_name']) ?>" required>
+            <div class="form-group">
+                <label>Nama Outlet</label>
+                <input type="text" name="outlet_name" value="<?= htmlspecialchars($outlet['outlet_name']) ?>" required>
+            </div>
+        </div>
 
-        <div style="margin-top: 1rem;">
+        <div class="form-actions">
             <button type="submit" class="btn btn-primary">Update</button>
-            <a href="index.php" class="btn btn-danger" style="margin-left: 0.5rem;">Batal</a>
+            <a href="index.php" class="btn btn-secondary">Batal</a>
         </div>
     </form>
 </div>

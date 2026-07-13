@@ -14,13 +14,22 @@ role_required('super_admin');
 <div class="card">
     <form action="store.php" method="POST">
         <?= csrf_field() ?>
-        <label>Kode Outlet</label>
-        <input type="text" name="outlet_code" required>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Kode Outlet</label>
+                <input type="text" name="outlet_code" required>
+            </div>
 
-        <label>Nama Outlet</label>
-        <input type="text" name="outlet_name" required>
+            <div class="form-group">
+                <label>Nama Outlet</label>
+                <input type="text" name="outlet_name" required>
+            </div>
+        </div>
 
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="index.php" class="btn btn-secondary">Batal</a>
+        </div>
     </form>
 </div>
 

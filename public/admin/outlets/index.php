@@ -18,33 +18,40 @@ $outlets = $db->query("SELECT * FROM outlets ORDER BY id ASC")->fetchAll();
     <i class='bx bx-plus'></i> Tambah Outlet
 </a>
 
-<div class="table-container">
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Kode Outlet</th>
-                <th>Nama Outlet</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($outlets as $outlet): ?>
-                <tr>
-                    <td><?= $outlet['id'] ?></td>
-                    <td><?= $outlet['outlet_code'] ?></td>
-                    <td><?= $outlet['outlet_name'] ?></td>
-                    <td>
-                        <a href="edit.php?id=<?= $outlet['id'] ?>" class="btn btn-primary btn-sm" style="display:inline-flex;">Edit</a>
-                        <a href="delete.php?id=<?= $outlet['id'] ?>"
-                            class="btn btn-danger btn-sm"
-                            style="display:inline-flex;"
-                            onclick="return confirm('Hapus outlet ini?')">Hapus</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+<div class="user-grid">
+    <?php foreach ($outlets as $outlet): ?>
+        <?php 
+            $initial = strtoupper(substr($outlet['outlet_name'], 0, 1)); 
+        ?>
+        <div class="user-card">
+            <div class="user-header">
+                <div class="user-avatar">
+                    <?= $initial ?>
+                </div>
+                <div class="user-info">
+                    <h3><?= htmlspecialchars($outlet['outlet_name']) ?></h3>
+                </div>
+                <div class="user-actions">
+                    <a href="edit.php?id=<?= $outlet['id'] ?>" class="btn-icon text-primary" title="Edit">
+                        <i class='bx bx-edit'></i>
+                    </a>
+                    <form action="delete.php" method="POST" style="margin:0;" onsubmit="return confirm('Yakin ingin menghapus outlet ini?')">
+                        <?= csrf_field() ?>
+                        <input type="hidden" name="id" value="<?= $outlet['id'] ?>">
+                        <button type="submit" class="btn-icon text-danger" title="Hapus">
+                            <i class='bx bx-trash'></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="user-tags">
+                <span class="text-sm text-muted">
+                    <i class='bx bx-barcode'></i> Kode: <?= htmlspecialchars($outlet['outlet_code']) ?>
+                </span>
+            </div>
+        </div>
+    <?php endforeach; ?>
 </div>
 
 <?php include '../../../resources/views/layouts/footer.php'; ?>

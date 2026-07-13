@@ -1,5 +1,6 @@
-RewriteEngine On
-    RewriteBase /
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /voucher/
 
     # Add trailing slash to directories
     RewriteCond %{REQUEST_FILENAME} -d

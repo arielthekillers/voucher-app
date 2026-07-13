@@ -9,7 +9,6 @@ CSRF::check($_POST['csrf_token'] ?? '');
 
 $id      = $_POST['id'];
 $name    = $_POST['name'];
-$user    = $_POST['username'];
 $role    = $_POST['role'];
 $status  = $_POST['status'];
 $outlet  = $_POST['outlet_id'] ?: null;
@@ -22,17 +21,17 @@ if (!empty($pass)) {
 
     $stmt = $db->prepare("
         UPDATE users
-        SET name=?, username=?, password=?, role=?, outlet_id=?, status=?
+        SET name=?, password=?, role=?, outlet_id=?, status=?
         WHERE id=?
     ");
-    $stmt->execute([$name, $user, $pass, $role, $outlet, $status, $id]);
+    $stmt->execute([$name, $pass, $role, $outlet, $status, $id]);
 } else {
     $stmt = $db->prepare("
         UPDATE users
-        SET name=?, username=?, role=?, outlet_id=?, status=?
+        SET name=?, role=?, outlet_id=?, status=?
         WHERE id=?
     ");
-    $stmt->execute([$name, $user, $role, $outlet, $status, $id]);
+    $stmt->execute([$name, $role, $outlet, $status, $id]);
 }
 
 $_SESSION['flash_success'] = "User berhasil diperbarui.";

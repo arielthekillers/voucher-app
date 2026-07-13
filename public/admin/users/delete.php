@@ -5,7 +5,13 @@ require_once '../../../vendor/autoload.php';
 
 role_required('super_admin');
 
-$id = (int) $_GET['id'];
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    exit('Method not allowed');
+}
+
+CSRF::check($_POST['csrf_token'] ?? '');
+
+$id = (int) $_POST['id'];
 
 $db = Database::connect();
 

@@ -23,37 +23,47 @@ $users = $db->query("
     <i class='bx bx-plus'></i> Tambah User
 </a>
 
-<div class="table-container">
-    <table cellpadding="8" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Nama</th>
-                <th>Username</th>
-                <th>Role</th>
-                <th>Outlet</th>
-                <th>Status</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($users as $u): ?>
-                <tr>
-                    <td><?= htmlspecialchars($u['name']) ?></td>
-                    <td><?= htmlspecialchars($u['username']) ?></td>
-                    <td><?= $u['role'] ?></td>
-                    <td><?= $u['outlet_name'] ?? '-' ?></td>
-                    <td><?= $u['status'] ?></td>
-                    <td>
-                        <a href="edit.php?id=<?= $u['id'] ?>" class="btn btn-primary btn-sm" style="display:inline-flex;">Edit</a>
-                        <a href="delete.php?id=<?= $u['id'] ?>"
-                            class="btn btn-danger btn-sm"
-                            style="display:inline-flex;"
-                            onclick="return confirm('Hapus user ini?')">Hapus</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+<div class="user-grid">
+    <?php foreach ($users as $u): ?>
+        <?php 
+            $initial = strtoupper(substr($u['name'], 0, 1)); 
+        ?>
+        <div class="user-card">
+            <div class="user-header">
+                <div class="user-avatar">
+                    <?= $initial ?>
+                </div>
+                <div class="user-info">
+                    <h3><?= htmlspecialchars($u['name']) ?></h3>
+                    <p><?= htmlspecialchars($u['username']) ?></p>
+                </div>
+                <div class="user-actions">
+                    <a href="edit.php?id=<?= $u['id'] ?>" class="btn-icon text-primary" title="Edit">
+                        <i class='bx bx-edit'></i>
+                    </a>
+                    <?php if ($u['role'] !== 'super_admin'): ?>
+                    <form action="delete.php" method="POST" style="margin:0;" onsubmit="return confirm('Yakin ingin menghapus user ini?')">
+                        <?= csrf_field() ?>
+                        <input type="hidden" name="id" value="<?= $u['id'] ?>">
+                        <button type="submit" class="btn-icon text-danger" title="Hapus">
+                            <i class='bx bx-trash'></i>
+                        </button>
+                    </form>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <div class="user-tags">
+                <span class="badge badge-role-<?= $u['role'] ?>"><?= str_replace('_', ' ', $u['role']) ?></span>
+                <span class="badge badge-status-<?= $u['status'] ?>"><?= $u['status'] ?></span>
+                <?php if ($u['outlet_name']): ?>
+                    <span class="text-sm text-muted" style="margin-left: auto;">
+                        <i class='bx bx-store-alt'></i> <?= htmlspecialchars($u['outlet_name']) ?>
+                    </span>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
 </div>
 
 <?php include '../../../resources/views/layouts/footer.php'; ?>

@@ -30,39 +30,56 @@ $outlets = $db->query("SELECT * FROM outlets ORDER BY outlet_name")->fetchAll();
         <?= csrf_field() ?>
         <input type="hidden" name="id" value="<?= $user['id'] ?>">
 
-        <label>Nama</label>
-        <input type="text" name="name" value="<?= htmlspecialchars($user['name']) ?>" required>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Nama</label>
+                <input type="text" name="name" value="<?= htmlspecialchars($user['name']) ?>" required>
+            </div>
 
-        <label>Username</label>
-        <input type="text" name="username" value="<?= htmlspecialchars($user['username']) ?>" required>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" value="<?= htmlspecialchars($user['username']) ?>" readonly title="Username tidak dapat diubah">
+            </div>
 
-        <label>Password (kosongkan jika tidak diubah)</label>
-        <input type="password" name="password">
+            <div class="form-group">
+                <label>Password (kosongkan jika tidak diubah)</label>
+                <input type="password" name="password">
+            </div>
 
-        <label>Role</label>
-        <select name="role">
-            <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
-            <option value="super_admin" <?= $user['role'] == 'super_admin' ? 'selected' : '' ?>>Super Admin</option>
-        </select>
+            <div class="form-group">
+                <label>Role</label>
+                <select name="role">
+                    <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
+                    <option value="super_admin" <?= $user['role'] == 'super_admin' ? 'selected' : '' ?>>Super Admin</option>
+                </select>
+            </div>
 
-        <label>Outlet</label>
-        <select name="outlet_id">
-            <option value="">-- Tidak ada --</option>
-            <?php foreach ($outlets as $o): ?>
-                <option value="<?= $o['id'] ?>"
-                    <?= $user['outlet_id'] == $o['id'] ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($o['outlet_name']) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+            <div class="form-group">
+                <label>Outlet</label>
+                <select name="outlet_id">
+                    <option value="">-- Tidak ada --</option>
+                    <?php foreach ($outlets as $o): ?>
+                        <option value="<?= $o['id'] ?>"
+                            <?= $user['outlet_id'] == $o['id'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($o['outlet_name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <label>Status</label>
-        <select name="status">
-            <option value="active" <?= $user['status'] == 'active' ? 'selected' : '' ?>>Active</option>
-            <option value="inactive" <?= $user['status'] == 'inactive' ? 'selected' : '' ?>>Inactive</option>
-        </select>
+            <div class="form-group">
+                <label>Status</label>
+                <select name="status">
+                    <option value="active" <?= $user['status'] == 'active' ? 'selected' : '' ?>>Active</option>
+                    <option value="inactive" <?= $user['status'] == 'inactive' ? 'selected' : '' ?>>Inactive</option>
+                </select>
+            </div>
+        </div>
 
-        <button type="submit" class="btn btn-primary">Update</button>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a href="index.php" class="btn btn-secondary">Batal</a>
+        </div>
     </form>
 </div>
 

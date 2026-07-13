@@ -39,7 +39,7 @@ if ($q) {
 
 <?php if ($customers): ?>
     <div class="card">
-        <form action="earn_store.php" method="POST">
+        <form action="earn_store.php" method="POST" id="earn-form">
             <label>Pilih Customer</label>
             <select name="customer_id" required>
                 <?php foreach ($customers as $c): ?>
@@ -49,16 +49,38 @@ if ($q) {
                 <?php endforeach; ?>
             </select>
 
-            <label>Nominal Belanja</label>
-            <input type="number" name="amount" required>
+            <label>Nominal Belanja (Rp)</label>
+            <input type="number" name="amount" id="amount" min="1000" required>
 
             <label>Jumlah <?= CURRENCY_NAME ?></label>
-            <input type="number" name="point" required>
+            <input type="number" name="point" id="point" min="1" max="50" required>
             
             <?= csrf_field() ?>
             <button type="submit" class="btn btn-primary">Simpan <?= CURRENCY_NAME ?></button>
         </form>
     </div>
+
+    <script>
+    document.getElementById('earn-form').addEventListener('submit', function(e) {
+        const amount = parseFloat(document.getElementById('amount').value);
+        const point = parseInt(document.getElementById('point').value);
+        
+        // Asumsi harga standar 1 stamp = Rp 30.000
+        let expectedPoints = Math.floor(amount / 30000);
+        if (expectedPoints < 1) expectedPoints = 1;
+        
+        // Toleransi perbedaan adalah 2 stamp dari ekspektasi
+        const maxTolerable = expectedPoints + 2;
+
+        if (point > maxTolerable) {
+            const confirmMsg = `🚨 PERINGATAN!\n\nNominal belanja Rp ${amount.toLocaleString('id-ID')} biasanya hanya mendapatkan sekitar ${expectedPoints} hingga ${expectedPoints + 1} <?= CURRENCY_NAME ?>.\n\nAnda akan memberikan ${point} <?= CURRENCY_NAME ?> sekaligus.\n\nApakah Anda YAKIN angka ini sudah benar dan bukan salah ketik?`;
+            
+            if (!confirm(confirmMsg)) {
+                e.preventDefault();
+            }
+        }
+    });
+    </script>
 <?php endif; ?>
 
 <?php include '../../../resources/views/layouts/footer.php'; ?>

@@ -7,11 +7,11 @@
   </p>
 </div>
 
-## Apa itu Aplikasi Ini?
+## Tentang Aplikasi
 
 Aplikasi ini adalah solusi "All-in-One" untuk mengelola program loyalitas (Loyalty Program) bisnis Anda. Baik Anda memiliki kedai kopi, barbershop, atau toko ritel, aplikasi ini menggantikan kartu stamp kertas tradisional menjadi sistem digital yang aman, canggih, dan anti-kecurangan.
 
-## Mengapa Harus Pakai Aplikasi Ini?
+## Keunggulan Utama
 
 - Meningkatkan Retensi Pelanggan: Buat pelanggan terus kembali dengan iming-iming promo menarik.
 - Digital & Modern: Selamat tinggal kartu kertas yang gampang hilang. Semua data tersimpan aman di sistem.

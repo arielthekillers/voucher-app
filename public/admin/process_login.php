@@ -3,6 +3,8 @@ session_start();
 
 require_once '../../vendor/autoload.php';
 
+CSRF::check($_POST['csrf_token'] ?? '');
+
 $username = trim($_POST['username'] ?? '');
 $password = trim($_POST['password'] ?? '');
 

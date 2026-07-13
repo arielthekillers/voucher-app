@@ -81,6 +81,7 @@ $settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
     <!-- Old alerts removed -->
 
     <form method="post" action="process_login.php">
+        <?= csrf_field() ?>
         <label>Username</label>
         <input type="text" name="username" required>
 

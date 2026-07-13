@@ -3,7 +3,7 @@ session_start();
 
 require_once '../../../vendor/autoload.php';
 
-auth_required();
+role_required('super_admin');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit('Invalid method');
@@ -30,13 +30,13 @@ if (!empty($_FILES['business_logo']['name'])) {
     $ext   = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 
     if (!in_array($mime, $allowedMimes) || !in_array($ext, $allowedExts)) {
-        flash('error', 'Invalid file type. Only JPG, PNG, GIF, WEBP allowed.');
+        $_SESSION['flash_error'] = 'Invalid file type. Only JPG, PNG, GIF, WEBP allowed.';
         header('Location: index.php');
         exit;
     }
 
     if ($file['size'] > 2 * 1024 * 1024) { // 2MB limit
-        flash('error', 'File too large. Max 2MB.');
+        $_SESSION['flash_error'] = 'File too large. Max 2MB.';
         header('Location: index.php');
         exit;
     }

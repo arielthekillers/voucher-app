@@ -258,9 +258,9 @@ ul {
 
 .page-content {
     padding: 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
     width: 100%;
+    /* margin: 0 auto; removed to align left */
+    /* max-width removed to allow fluid width */
 }
 
 /* ===== PROMO GRID ===== */

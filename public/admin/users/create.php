@@ -16,6 +16,7 @@ $outlets = $db->query("SELECT * FROM outlets ORDER BY outlet_name")->fetchAll();
 
 <div class="card">
     <form action="store.php" method="POST">
+        <?= csrf_field() ?>
         <label>Nama</label>
         <input type="text" name="name" required>
 

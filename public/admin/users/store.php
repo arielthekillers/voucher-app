@@ -5,6 +5,8 @@ require_once '../../../vendor/autoload.php';
 
 role_required('super_admin');
 
+CSRF::check($_POST['csrf_token'] ?? '');
+
 $name   = trim($_POST['name']);
 $user   = trim($_POST['username']);
 $pass   = password_hash($_POST['password'], PASSWORD_DEFAULT);

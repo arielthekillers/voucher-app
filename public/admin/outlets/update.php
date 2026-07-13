@@ -5,6 +5,8 @@ require_once '../../../vendor/autoload.php';
 
 role_required('super_admin');
 
+CSRF::check($_POST['csrf_token'] ?? '');
+
 $id   = $_POST['id'] ?? null;
 $code = trim($_POST['outlet_code'] ?? '');
 $name = trim($_POST['outlet_name'] ?? '');

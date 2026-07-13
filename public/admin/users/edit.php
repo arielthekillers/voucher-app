@@ -27,6 +27,7 @@ $outlets = $db->query("SELECT * FROM outlets ORDER BY outlet_name")->fetchAll();
 
 <div class="card">
     <form action="update.php" method="POST">
+        <?= csrf_field() ?>
         <input type="hidden" name="id" value="<?= $user['id'] ?>">
 
         <label>Nama</label>

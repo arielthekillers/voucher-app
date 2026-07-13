@@ -29,6 +29,7 @@ if (!$outlet) {
 
 <div class="card">
     <form action="update.php" method="POST">
+        <?= csrf_field() ?>
         <input type="hidden" name="id" value="<?= $outlet['id'] ?>">
 
         <label>Kode Outlet</label>

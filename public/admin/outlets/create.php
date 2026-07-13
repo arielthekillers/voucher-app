@@ -13,6 +13,7 @@ role_required('super_admin');
 
 <div class="card">
     <form action="store.php" method="POST">
+        <?= csrf_field() ?>
         <label>Kode Outlet</label>
         <input type="text" name="outlet_code" required>
 

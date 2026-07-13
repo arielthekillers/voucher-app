@@ -91,5 +91,5 @@ Ingin mencoba menjalankannya di komputer lokal Anda? Ikuti langkah mudah berikut
 
 ## 👨‍💻 Kreator
 
-Dibuat dengan ❤️ oleh **Ariel The Killers**.
+Dibuat dengan ❤️ oleh **arielthekillers**.
 Temukan proyek-proyek seru lainnya di [GitHub Profile](https://github.com/arielthekillers).

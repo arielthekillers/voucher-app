@@ -38,6 +38,7 @@ $currentPoints = $stats['total_earned'] - $stats['total_redeemed'];
 
 // 3. Handle Deletion (POST Request)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_delete'])) {
+    CSRF::check($_POST['csrf_token'] ?? '');
     try {
         $db->beginTransaction();
 
@@ -116,6 +117,7 @@ require_once '../../../resources/views/layouts/sidebar.php';
         </div>
 
         <form action="" method="POST">
+            <?= csrf_field() ?>
             <button type="submit" name="confirm_delete" class="btn" style="background: #dc2626; color: white; width: 100%; justify-content: center; padding: 0.875rem; font-size: 1rem; border-radius: 10px; border: none; font-weight: 600; cursor: pointer; transition: background 0.2s;">
                 Hapus Pelanggan
             </button>

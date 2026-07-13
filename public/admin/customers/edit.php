@@ -25,6 +25,7 @@ if (!$c) {
 
 <div class="card">
     <form action="update.php" method="POST">
+        <?= csrf_field() ?>
         <input type="hidden" name="id" value="<?= $c['id'] ?>">
 
         <label>Nama</label>

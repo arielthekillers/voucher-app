@@ -13,6 +13,7 @@ auth_required();
 
 <div class="card">
     <form action="store.php" method="POST">
+        <?= csrf_field() ?>
         <label>Nama</label>
         <input type="text" name="name" required>
 

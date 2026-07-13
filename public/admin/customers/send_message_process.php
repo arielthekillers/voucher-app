@@ -5,6 +5,8 @@ auth_required();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') exit('Method not allowed');
 
+CSRF::check($_POST['csrf_token'] ?? '');
+
 $customer_id = $_POST['customer_id'];
 $message = $_POST['message'];
 

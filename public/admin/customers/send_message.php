@@ -26,6 +26,7 @@ if (!$customer) exit('Customer not found');
     </div>
 
     <form action="send_message_process.php" method="POST">
+        <?= csrf_field() ?>
         <input type="hidden" name="customer_id" value="<?= $customer['id'] ?>">
         
         <label>Isi Pesan</label>

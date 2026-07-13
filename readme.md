@@ -1,133 +1,95 @@
-# Voucher Management System
-
-A robust, multi-outlet loyalty and voucher transaction system built with **Native PHP** and **MySQL**. Designed for scalability, security, and ease of use.
-
-## 🚀 Key Features
-
-### 🏢 Core Management
-- **Multi-Outlet Support**: Manage different store locations.
-- **Role-Based Access**: Super Admin vs Outlet Admin.
-- **Centralized Customers**: One customer account works across all outlets.
-- **Dynamic Settings**: Configure Business Name, Currency (Points/Stamp/Coin), Timezone, and more.
-
-### 💰 Transactions
-- **Earn Points**: Flexible point assignment based on purchase amount.
-- **Redeem Promos**: Exchange points for active promotions.
-- **Immutable Entry Logs**: Audit-friendly transaction history.
-
-### 📢 Marketing & Engagement
-- **Promo Management**: Create rich promos with image support (secure upload).
-- **WhatsApp Integration**:
-  - Automated notifications for "Earn Points" & "Redeem Success" (via RuangWA API).
-  - Manual "Click-to-Chat" feature for Customers.
-- **Flash Messages**: Clean, session-based UI notifications.
-
-### 📊 Insights & Reporting
-- **Dashboard**: Real-time statistics widgets.
-- **Reports Module**:
-  - Latest Registered Customers.
-  - Top Customers (Highest Points).
-  - Recent Transaction Activity.
-
-### 🛡️ Security & Architecture
-- **CSRF Protection**: Middleware to prevent Cross-Site Request Forgery.
-- **Secure File Uploads**: Strict MIME type and extension validation.
-- **Database Singleton**: Optimized connection management.
-- **Environment Variables**: Sensitive config loaded from `.env` file.
-- **PHP 8.1+**: Leveraging modern PHP features.
+<div align="center">
+  <h1>🎟️ Voucher & Loyalty Management System</h1>
+  <p><strong>Ubah Pelanggan Biasa Menjadi Pelanggan Setia!</strong></p>
+  <p>
+    Aplikasi loyalitas pelanggan dan manajemen voucher modern yang dirancang untuk bisnis multi-cabang. 
+    Kumpulkan *stamp*, tukarkan *promo*, dan pantau performa bisnis Anda dalam satu *Command Center*!
+  </p>
+</div>
 
 ---
 
-## 🛠️ Tech Stack
+## 🎯 Apa itu Aplikasi Ini?
 
-- **Backend**: PHP 8.1 (Native)
-- **Database**: MySQL / MariaDB
-- **Frontend**: HTML5, CSS3 (Admin Template), Vanilla JS
-- **Dependency Manager**: Composer
-- **Services**: RuangWA (WhatsApp API)
+Aplikasi ini adalah solusi "All-in-One" untuk mengelola program loyalitas (*Loyalty Program*) bisnis Anda. Baik Anda memiliki kedai kopi, *barbershop*, atau toko ritel, aplikasi ini menggantikan kartu *stamp* kertas tradisional menjadi sistem digital yang aman, canggih, dan anti-kecurangan.
+
+## ✨ Mengapa Harus Pakai Aplikasi Ini?
+
+- 🚀 **Meningkatkan Retensi Pelanggan**: Buat pelanggan terus kembali dengan iming-iming promo menarik.
+- 📱 **Digital & Modern**: Selamat tinggal kartu kertas yang gampang hilang. Semua data tersimpan aman di sistem.
+- 🏢 **Multi-Cabang (Outlet)**: Punya 5 cabang? Tidak masalah! Satu akun pelanggan berlaku di semua cabang Anda.
+- 🛡️ **Anti-Kecurangan (Smart Validation)**: Dilengkapi kecerdasan buatan sederhana untuk mencegah kasir (*capster*) memasukkan jumlah poin yang tidak wajar.
+- 📊 **Pantauan Instan**: Lihat siapa pelanggan tersultan dan cabang mana yang paling ramai langsung dari *Dashboard*.
 
 ---
 
-## ⚙️ Installation
+## 🚀 Fitur Unggulan
 
-### Prerequisites
-- PHP >= 8.1
-- Composer
-- Web Server (Apache/Nginx/XAMPP/Laragon)
-- MySQL
+### 👥 Manajemen Pelanggan Terpusat
+Satu data pelanggan terhubung ke seluruh jaringan *outlet* Anda. Lacak riwayat kedatangan dan total poin mereka dengan mudah.
 
-### Steps
+### 🎁 Earn & Redeem
+- **Earn**: Berikan poin / *stamp* berdasarkan nominal belanja pelanggan secara dinamis.
+- **Redeem**: Pelanggan menukarkan poin mereka dengan berbagai pilihan promo cantik yang sudah Anda atur.
 
-1. **Clone the Repository**
+### 💬 Integrasi WhatsApp (RuangWA)
+Kirimkan notifikasi WhatsApp otomatis ke pelanggan saat mereka mendapatkan poin baru atau sukses menukarkan promo. Pendekatan personal yang sangat disenangi pelanggan!
+
+### ⚙️ Fleksibilitas "White-Label"
+Ganti nama aplikasi, logo, dan sebutan mata uang virtual Anda (*Stamp*, *Poin*, *Koin*, dll) langsung dari halaman Pengaturan tanpa perlu menyentuh kode.
+
+---
+
+## 💻 Tech Stack (Untuk Developer)
+
+Aplikasi ini dibangun dengan mengedepankan performa, keamanan, dan kesederhanaan *deployment*:
+- **Backend**: Native PHP 8.1+ (Super ringan, tanpa *framework* yang berat)
+- **Database**: MySQL / MariaDB (Performa tinggi)
+- **Frontend**: HTML5, CSS3 Custom (Grid & Flexbox modern), Vanilla JS
+- **Arsitektur**: Menggunakan konsep *Singleton* untuk koneksi DB dan sistem *Middleware* mandiri (Auth & CSRF Protection).
+
+---
+
+## 🛠️ Instalasi Cepat
+
+Ingin mencoba menjalankannya di komputer lokal Anda? Ikuti langkah mudah berikut:
+
+1. **Clone Repository**
    ```bash
    git clone https://github.com/arielthekillers/voucher-app.git
    cd voucher-app
    ```
 
-2. **Install Dependencies**
+2. **Install Dependensi**
+   Pastikan Anda sudah menginstal [Composer](https://getcomposer.org/).
    ```bash
    composer install
    ```
 
-3. **Configure Environment**
-   Copy the example environment file and configure your database credentials.
-   ```bash
-   cp .env.example .env
-   ```
-   Open `.env` and update:
+3. **Konfigurasi Database**
+   Copy file `.env.example` menjadi `.env`. Buka file `.env` lalu sesuaikan koneksi database Anda:
    ```ini
    DB_HOST=localhost
    DB_NAME=voucher
    DB_USER=root
-   DB_PASS=your_password
+   DB_PASS=
    ```
 
-4. **Import Database**
-   Import the provided SQL file (if available) or run migrations to set up the `users`, `customers`, `transactions`, `promos`, `settings`, and `outlets` tables.
+4. **Jalankan Aplikasi**
+   Gunakan server PHP bawaan atau jalankan di XAMPP/Laragon.
+   ```bash
+   php -S localhost:8000 -t public
+   ```
+   Buka browser dan akses: `http://localhost:8000/admin/login.php`
 
-5. **Access the App**
-   Open your browser and navigate to the project directory (e.g., `http://localhost/voucher/public/admin/login.php`).
-
----
-
-## 🔐 Default Credentials (Local Seeder)
-
-> **Note**: These are default accounts for testing. Change immediately in production.
-
-```text
-Username: admin
-Password: admin123
-```
+> **Akun Default Administrator:**
+> - **Username**: `admin`
+> - **Password**: `admin123`
+> *(Harap segera diganti saat aplikasi online!)*
 
 ---
 
-## 🧠 Project Structure
+## 👨‍💻 Kreator
 
-```
-voucher/
-├── app/
-│   ├── config/      # App & DB Config
-│   ├── core/        # Core Classes (Database, DotEnv)
-│   ├── helpers/     # Helper Functions (Flash)
-│   ├── middleware/  # Auth & CSRF Middleware
-│   └── services/    # External Services (WhatsApp)
-│
-├── public/
-│   └── admin/       # Admin Interface Controllers & Views
-│
-├── resources/
-│   └── views/       # Shared Layouts (Header, Sidebar)
-│
-├── storage/
-│   └── uploads/     # User Uploaded Content
-│
-├── .env             # Environment Variables
-└── composer.json    # Dependencies & Autoloading
-```
-
----
-
-## 👨‍💻 Author
-
-**Ariel The Killers**
-[GitHub Profile](https://github.com/arielthekillers)
+Dibuat dengan ❤️ oleh **Ariel The Killers**.
+Temukan proyek-proyek seru lainnya di [GitHub Profile](https://github.com/arielthekillers).

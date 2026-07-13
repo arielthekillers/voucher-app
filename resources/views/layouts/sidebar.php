@@ -5,25 +5,22 @@ $settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
 ?>
 
 <aside class="sidebar">
-    <div class="sidebar-header">
-        <div class="brand-logo" style="display: flex; align-items: center; gap: 10px;">
+    <div class="sidebar-header" style="justify-content: center; position: relative;">
+        <div class="brand-logo" style="display: flex; align-items: center; justify-content: center; width: 100%;">
             <?php if (!empty($settings['business_logo'])): ?>
                 <img src="<?= BASE_URL ?>/storage/uploads/settings/<?= htmlspecialchars($settings['business_logo']) ?>" 
                      alt="Logo" 
-                     style="height: 40px; width: auto; max-width: 120px; object-fit: contain;">
+                     style="height: 60px; width: auto; max-width: 200px; object-fit: contain;">
             <?php else: ?>
-                <i class='bx bxs-coupon' style="font-size: 24px;"></i>
-            <?php endif; ?>
-            
-            <?php if (empty($settings['business_logo'])): ?>
-                <?= htmlspecialchars($settings['business_name'] ?? APP_NAME) ?>
+                <div style="width: 56px; height: 56px; background: linear-gradient(135deg, var(--primary), #818cf8); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; text-transform: uppercase; box-shadow: var(--shadow-sm);">
+                    <?= substr($settings['business_name'] ?? APP_NAME, 0, 1) ?>
+                </div>
             <?php endif; ?>
         </div>
-        <?php if (!empty($settings['business_logo'])): ?>
-            <div style="font-size: 0.8rem; font-weight: 600; color: #fff; margin-top: 5px;">
-                <?= htmlspecialchars($settings['business_name'] ?? APP_NAME) ?>
-            </div>
-        <?php endif; ?>
+        <!-- Close button for mobile -->
+        <button onclick="toggleSidebar()" class="btn-close-sidebar d-md-none" style="position: absolute; right: 1rem; background: transparent; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; padding: 0;">
+            <i class='bx bx-x'></i>
+        </button>
     </div>
 
     <?php
@@ -36,7 +33,6 @@ $settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
     ?>
 
     <nav class="sidebar-menu">
-        <div class="menu-label">Main Menu</div>
         
         <a href="<?= ASSET_URL ?>/admin/dashboard.php" class="nav-link <?= isActive('/admin/dashboard.php') ?>">
             <i class='bx bxs-dashboard'></i> Dashboard
@@ -51,7 +47,7 @@ $settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
             <a href="<?= ASSET_URL ?>/admin/outlets/index.php" class="nav-link <?= isActive('/admin/outlets/') ?>">
                 <i class='bx bxs-store'></i> Master Outlet
             </a>
-            <a href="<?= ASSET_URL ?>/admin/settings/index.php" class="nav-link <?= isActive('/admin/settings/index.php') ?>">
+            <a href="<?= ASSET_URL ?>/admin/settings/index.php" class="nav-link d-md-none <?= isActive('/admin/settings/index.php') ?>">
                 <i class='bx bx-cog'></i> Settings
             </a>
             <a href="<?= ASSET_URL ?>/admin/reports/index.php" class="nav-link <?= isActive('/admin/reports/index.php') ?>">
@@ -81,8 +77,8 @@ $settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
         </a>
     </nav>
 
-    <div class="sidebar-footer">
-        <a href="<?= ASSET_URL ?>/admin/logout.php" class="btn btn-danger btn-sm" style="width: 100%; justify-content: center;">
+    <div class="sidebar-footer d-md-none">
+        <a href="<?= ASSET_URL ?>/admin/logout.php" class="btn btn-danger" style="width: 100%; justify-content: center; font-size: 1rem; padding: 0.75rem;">
             <i class='bx bx-log-out'></i> Logout
         </a>
     </div>
@@ -97,13 +93,24 @@ $settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
             <h3 style="margin: 0; font-size: 1.1rem;"><?= APP_NAME ?></h3>
         </div>
         
-        <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <div style="text-align: right;">
+        <div class="user-dropdown-container" style="display: flex; align-items: center; gap: 0.5rem;">
+            <div style="text-align: right;" class="d-none-md">
                 <div style="font-weight: 600; font-size: 0.9rem;"><?= htmlspecialchars($current_user['name'] ?? 'User') ?></div>
                 <div style="font-size: 0.75rem; color: var(--text-muted);"><?= ucfirst($current_user['role'] ?? '') ?></div>
             </div>
             <div style="width: 36px; height: 36px; background: var(--primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
                 <?= substr($current_user['name'] ?? 'U', 0, 1) ?>
+            </div>
+            
+            <div class="user-dropdown-menu d-none-md">
+                <?php if ($current_user && $current_user['role'] === 'super_admin'): ?>
+                    <a href="<?= ASSET_URL ?>/admin/settings/index.php" class="user-dropdown-item">
+                        <i class='bx bx-cog'></i> Settings
+                    </a>
+                <?php endif; ?>
+                <a href="<?= ASSET_URL ?>/admin/logout.php" class="user-dropdown-item danger">
+                    <i class='bx bx-log-out'></i> Logout
+                </a>
             </div>
         </div>
     </header>

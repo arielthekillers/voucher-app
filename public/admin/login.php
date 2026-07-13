@@ -19,7 +19,7 @@ $settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login Admin - <?= htmlspecialchars($settings['business_name'] ?? APP_NAME) ?></title>
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>/public/admin/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= ASSET_URL ?>/admin/assets/css/admin.css">
     <style>
         body {
             background: #f3f4f6;

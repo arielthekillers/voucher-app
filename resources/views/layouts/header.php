@@ -12,7 +12,7 @@ $current_user = $_SESSION['user'] ?? null;
     <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>/public/admin/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= ASSET_URL ?>/admin/assets/css/admin.css">
 
     <script>
         function toggleSidebar() {

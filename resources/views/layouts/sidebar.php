@@ -38,51 +38,51 @@ $settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
     <nav class="sidebar-menu">
         <div class="menu-label">Main Menu</div>
         
-        <a href="<?= BASE_URL ?>/public/admin/dashboard.php" class="nav-link <?= isActive('/admin/dashboard.php') ?>">
+        <a href="<?= ASSET_URL ?>/admin/dashboard.php" class="nav-link <?= isActive('/admin/dashboard.php') ?>">
             <i class='bx bxs-dashboard'></i> Dashboard
         </a>
 
         <?php if ($current_user && $current_user['role'] === 'super_admin'): ?>
             <div class="menu-label" style="margin-top: 1rem;">Admin</div>
             
-            <a href="<?= BASE_URL ?>/public/admin/users/index.php" class="nav-link <?= isActive('/admin/users/') ?>">
+            <a href="<?= ASSET_URL ?>/admin/users/index.php" class="nav-link <?= isActive('/admin/users/') ?>">
                 <i class='bx bxs-user-account'></i> User Management
             </a>
-            <a href="<?= BASE_URL ?>/public/admin/outlets/index.php" class="nav-link <?= isActive('/admin/outlets/') ?>">
+            <a href="<?= ASSET_URL ?>/admin/outlets/index.php" class="nav-link <?= isActive('/admin/outlets/') ?>">
                 <i class='bx bxs-store'></i> Master Outlet
             </a>
-            <a href="<?= BASE_URL ?>/public/admin/settings/index.php" class="nav-link <?= isActive('/admin/settings/index.php') ?>">
+            <a href="<?= ASSET_URL ?>/admin/settings/index.php" class="nav-link <?= isActive('/admin/settings/index.php') ?>">
                 <i class='bx bx-cog'></i> Settings
             </a>
-            <a href="<?= BASE_URL ?>/public/admin/reports/index.php" class="nav-link <?= isActive('/admin/reports/index.php') ?>">
+            <a href="<?= ASSET_URL ?>/admin/reports/index.php" class="nav-link <?= isActive('/admin/reports/index.php') ?>">
                 <i class='bx bx-bar-chart-alt-2'></i> Reports
             </a>
         <?php endif; ?>
 
         <div class="menu-label" style="margin-top: 1rem;">Data</div>
 
-        <a href="<?= BASE_URL ?>/public/admin/customers/index.php" class="nav-link <?= isActive('/admin/customers/') ?>">
+        <a href="<?= ASSET_URL ?>/admin/customers/index.php" class="nav-link <?= isActive('/admin/customers/') ?>">
             <i class='bx bxs-user-detail'></i> Customers
         </a>
-        <a href="<?= BASE_URL ?>/public/admin/promos/index.php" class="nav-link <?= isActive('/admin/promos/') ?>">
+        <a href="<?= ASSET_URL ?>/admin/promos/index.php" class="nav-link <?= isActive('/admin/promos/') ?>">
             <i class='bx bxs-offer'></i> Promos
         </a>
 
         <div class="menu-label" style="margin-top: 1rem;">Transaction</div>
 
-        <a href="<?= BASE_URL ?>/public/admin/transactions/earn.php" class="nav-link <?= isActive('/admin/transactions/earn.php') ?>">
+        <a href="<?= ASSET_URL ?>/admin/transactions/earn.php" class="nav-link <?= isActive('/admin/transactions/earn.php') ?>">
             <i class='bx bx-plus-circle'></i> Tambah <?= CURRENCY_NAME ?>
         </a>
-        <a href="<?= BASE_URL ?>/public/admin/transactions/redeem.php" class="nav-link <?= isActive('/admin/transactions/redeem.php') ?>">
+        <a href="<?= ASSET_URL ?>/admin/transactions/redeem.php" class="nav-link <?= isActive('/admin/transactions/redeem.php') ?>">
             <i class='bx bx-gift'></i> Redeem Promo
         </a>
-        <a href="<?= BASE_URL ?>/public/admin/transactions/history.php" class="nav-link <?= isActive('/admin/transactions/history.php') ?>">
+        <a href="<?= ASSET_URL ?>/admin/transactions/history.php" class="nav-link <?= isActive('/admin/transactions/history.php') ?>">
             <i class='bx bx-history'></i> Riwayat
         </a>
     </nav>
 
     <div class="sidebar-footer">
-        <a href="<?= BASE_URL ?>/public/admin/logout.php" class="btn btn-danger btn-sm" style="width: 100%; justify-content: center;">
+        <a href="<?= ASSET_URL ?>/admin/logout.php" class="btn btn-danger btn-sm" style="width: 100%; justify-content: center;">
             <i class='bx bx-log-out'></i> Logout
         </a>
     </div>

@@ -4,9 +4,9 @@ session_start();
 require_once '../../vendor/autoload.php';
 
 if (!Auth::check()) {
-    header('Location: login.php');
+    header('Location: ' . BASE_URL . '/admin/login.php');
     exit;
 }
 
-header('Location: dashboard.php');
+header('Location: ' . BASE_URL . '/admin/dashboard.php');
 exit;

@@ -56,13 +56,15 @@ $scriptName = $_SERVER['SCRIPT_NAME'];
 if (strpos($scriptName, '/public/') !== false) {
     // Take everything before '/public/'
     $base = strstr($scriptName, '/public/', true);
+    $assetUrl = $base . '/public';
 } else {
-    // Fallback: use directory name (though this might cause issues if not in public)
-    $dirName = dirname($scriptName);
-    $base = ($dirName === '/' || $dirName === '\\') ? '' : $dirName;
+    // If '/public/' is not in the path, it means 'public' is the document root.
+    $base = '';
+    $assetUrl = '';
 }
 
 define('BASE_URL', $base);
+define('ASSET_URL', $assetUrl);
 // ========================
 
 

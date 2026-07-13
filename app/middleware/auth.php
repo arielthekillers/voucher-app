@@ -9,7 +9,7 @@ function auth_required()
 {
     if (!Auth::check()) {
         flash('error', 'Silakan login terlebih dahulu.');
-        header('Location: /voucher/public/admin/login.php');
+        header('Location: ' . BASE_URL . '/admin/login.php');
         exit;
     }
 }

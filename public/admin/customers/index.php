@@ -52,6 +52,23 @@ $customers = $stmt->fetchAll();
 
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
     <h2 style="margin: 0;">Data Customer</h2>
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <?php if ($current_user && $current_user['role'] === 'super_admin'): ?>
+            <a href="merge.php" class="btn btn-secondary" style="background: #fff; color: #b45309; border: 1px solid #fcd34d; display: flex; align-items: center; gap: 0.5rem; height: 38px;" title="Cari & Gabungkan Nomor Kembar">
+                <i class='bx bx-git-merge'></i> <span class="d-none-sm">Merge Data</span>
+            </a>
+        <?php endif; ?>
+        
+        <form action="fix_phones.php" method="POST" style="margin: 0;" onsubmit="return confirm('Proses ini akan merapikan semua No HP (menghapus spasi/simbol dan mengubah awalan menjadi 628). Lanjutkan?');">
+            <?= csrf_field() ?>
+            <button type="submit" class="btn btn-secondary" style="background: #fff; color: #475569; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 0.5rem; height: 38px;">
+                <i class='bx bx-wrench'></i> <span class="d-none-sm">Fix Format No HP</span>
+            </button>
+        </form>
+        <a href="create.php" class="btn btn-primary" style="display: flex; align-items: center; gap: 0.5rem; height: 38px;">
+            <i class='bx bx-plus'></i> <span>Tambah Customer</span>
+        </a>
+    </div>
 </div>
 
 <form method="GET" style="display: flex; gap: 1rem; align-items: center; background: #fff; padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); flex-wrap: wrap;">
@@ -77,10 +94,6 @@ $customers = $stmt->fetchAll();
             <i class='bx bx-reset'></i> Reset
         </a>
     <?php endif; ?>
-
-    <a href="create.php" class="btn btn-primary" style="height: 42px; margin-left: auto;">
-        <i class='bx bx-plus'></i> Tambah
-    </a>
 </form>
 
 <br>

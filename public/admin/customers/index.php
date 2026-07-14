@@ -50,34 +50,100 @@ $customers = $stmt->fetchAll();
 
 
 
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+<style>
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+@media (max-width: 768px) {
+    .header-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header-actions .btn-group {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .header-actions .btn-group > * {
+        width: 100%;
+        display: flex;
+    }
+    .header-actions .btn-group .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .search-form {
+        flex-direction: column;
+        align-items: stretch !important;
+        padding: 1rem !important;
+    }
+    .search-form > div {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+    .search-form .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Hide desktop table on mobile, show mobile list */
+    .table-container {
+        display: none !important;
+    }
+    .mobile-customer-list {
+        display: block !important;
+    }
+
+    /* Responsive Pagination */
+    .pagination-wrapper {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 1rem !important;
+    }
+    .pagination-links {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+    }
+}
+.mobile-customer-list {
+    display: none;
+}
+</style>
+
+<div class="header-actions">
     <h2 style="margin: 0;">Data Customer</h2>
-    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+    <div class="btn-group" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
         <?php if ($current_user && $current_user['role'] === 'super_admin'): ?>
             <a href="merge.php" class="btn btn-secondary" style="background: #fff; color: #b45309; border: 1px solid #fcd34d; display: flex; align-items: center; gap: 0.5rem; height: 38px;" title="Cari & Gabungkan Nomor Kembar">
                 <i class='bx bx-git-merge'></i> <span class="d-none-sm">Merge Data</span>
             </a>
         <?php endif; ?>
         
-        <form action="fix_phones.php" method="POST" style="margin: 0;" onsubmit="return confirm('Proses ini akan merapikan semua No HP (menghapus spasi/simbol dan mengubah awalan menjadi 628). Lanjutkan?');">
+        <form action="fix_phones.php" method="POST" style="margin: 0; display: flex;" onsubmit="return confirm('Proses ini akan merapikan semua No HP (menghapus spasi/simbol dan mengubah awalan menjadi 628). Lanjutkan?');">
             <?= csrf_field() ?>
-            <button type="submit" class="btn btn-secondary" style="background: #fff; color: #475569; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 0.5rem; height: 38px;">
+            <button type="submit" class="btn btn-secondary" style="background: #fff; color: #475569; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; gap: 0.5rem; height: 38px; width: 100%;">
                 <i class='bx bx-wrench'></i> <span class="d-none-sm">Fix Format No HP</span>
             </button>
         </form>
-        <a href="create.php" class="btn btn-primary" style="display: flex; align-items: center; gap: 0.5rem; height: 38px;">
+        <a href="create.php" class="btn btn-primary" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; height: 38px;">
             <i class='bx bx-plus'></i> <span>Tambah Customer</span>
         </a>
     </div>
 </div>
 
-<form method="GET" style="display: flex; gap: 1rem; align-items: center; background: #fff; padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); flex-wrap: wrap;">
+<form method="GET" class="search-form" style="display: flex; gap: 1rem; align-items: center; background: #fff; padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); flex-wrap: wrap;">
     <div style="flex: 1; min-width: 250px;">
-        <input type="text" name="q" placeholder="Cari nama / no HP" value="<?= htmlspecialchars($q) ?>" style="margin-bottom: 0;">
+        <input type="text" name="q" placeholder="Cari nama / no HP" value="<?= htmlspecialchars($q) ?>" style="margin-bottom: 0; width: 100%;">
     </div>
     
     <div style="width: 200px;">
-        <select name="sort" style="margin-bottom: 0;" onchange="this.form.submit()">
+        <select name="sort" style="margin-bottom: 0; width: 100%;" onchange="this.form.submit()">
             <option value="newest" <?= $sort === 'newest' ? 'selected' : '' ?>>Pendaftaran Terbaru</option>
             <option value="oldest" <?= $sort === 'oldest' ? 'selected' : '' ?>>Pendaftaran Terlama</option>
             <option value="highest" <?= $sort === 'highest' ? 'selected' : '' ?>>Saldo Stamp Terbanyak</option>
@@ -128,13 +194,16 @@ $customers = $stmt->fetchAll();
                         </td>
                         <td>
                             <div style="display: flex; gap: 0.25rem;">
+                                <a href="profile.php?id=<?= $c['id'] ?>" class="btn-icon" style="color: #0284c7; background: #e0f2fe;" title="Lihat Profil">
+                                    <i class='bx bx-user'></i>
+                                </a>
                                 <a href="send_message.php?id=<?= $c['id'] ?>" class="btn-icon" style="color: #25D366; background: #dcfce7;" title="Chat WhatsApp">
                                     <i class='bx bxl-whatsapp'></i>
                                 </a>
                                 <a href="edit.php?id=<?= $c['id'] ?>" class="btn-icon text-primary" style="background: #eef2ff;" title="Edit">
                                     <i class='bx bx-edit-alt'></i>
                                 </a>
-                                <a href="delete.php?id=<?= $c['id'] ?>" class="btn-icon text-danger" style="background: #fef2f2;" title="Hapus" onclick="return confirm('Yakin ingin menghapus customer ini? Semua riwayat transaksinya akan hilang!')">
+                                <a href="delete.php?id=<?= $c['id'] ?>" class="btn-icon text-danger" style="background: #fef2f2;" title="Hapus">
                                     <i class='bx bx-trash'></i>
                                 </a>
                             </div>
@@ -152,13 +221,51 @@ $customers = $stmt->fetchAll();
     </table>
 </div>
 
+<div class="mobile-customer-list">
+    <?php if (count($customers) > 0): ?>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <?php foreach ($customers as $c): ?>
+                <div style="background: #fff; padding: 1.25rem; border-radius: 12px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 1rem; box-shadow: 0 1px 2px rgba(0,0,0,0.02);">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;">
+                        <div style="flex: 1; min-width: 0;">
+                            <div style="font-weight: 600; font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= htmlspecialchars($c['name']) ?></div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted);"><?= htmlspecialchars($c['phone']) ?> &bull; <?= date('d M y', strtotime($c['created_at'])) ?></div>
+                        </div>
+                        <span class="badge" style="background-color: #e0e7ff; color: #3730a3; font-size: 0.8rem; padding: 0.35rem 0.75rem; white-space: nowrap; border-radius: 20px;">
+                            <?= number_format($c['current_stamp']) ?> Stamp
+                        </span>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; border-top: 1px solid #f1f5f9; padding-top: 1rem;">
+                        <a href="profile.php?id=<?= $c['id'] ?>" class="btn-icon" style="color: #0284c7; background: #e0f2fe; flex: 1; justify-content: center; height: 38px; border-radius: 8px;" title="Lihat Profil">
+                            <i class='bx bx-user' style="font-size: 1.2rem;"></i>
+                        </a>
+                        <a href="send_message.php?id=<?= $c['id'] ?>" class="btn-icon" style="color: #25D366; background: #dcfce7; flex: 1; justify-content: center; height: 38px; border-radius: 8px;" title="Chat WhatsApp">
+                            <i class='bx bxl-whatsapp' style="font-size: 1.2rem;"></i>
+                        </a>
+                        <a href="edit.php?id=<?= $c['id'] ?>" class="btn-icon text-primary" style="background: #eef2ff; flex: 1; justify-content: center; height: 38px; border-radius: 8px;" title="Edit">
+                            <i class='bx bx-edit-alt' style="font-size: 1.2rem;"></i>
+                        </a>
+                        <a href="delete.php?id=<?= $c['id'] ?>" class="btn-icon text-danger" style="background: #fef2f2; flex: 1; justify-content: center; height: 38px; border-radius: 8px;" title="Hapus">
+                            <i class='bx bx-trash' style="font-size: 1.2rem;"></i>
+                        </a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php else: ?>
+        <div style="text-align: center; padding: 3rem 1rem; color: var(--text-muted); background: #fff; border-radius: 12px; border: 1px solid var(--border-color);">
+            Tidak ada data customer ditemukan.
+        </div>
+    <?php endif; ?>
+</div>
+
 <!-- Pagination UI -->
 <?php if ($total_pages > 1): ?>
-<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-    <div style="font-size: 0.875rem; color: var(--text-muted);">
+<div class="pagination-wrapper" style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+    <div style="font-size: 0.875rem; color: var(--text-muted); text-align: center;">
         Menampilkan <?= min($offset + 1, $total_data) ?> - <?= min($offset + $limit, $total_data) ?> dari <?= $total_data ?> customer
     </div>
-    <div style="display: flex; gap: 0.25rem;">
+    <div class="pagination-links" style="display: flex; gap: 0.25rem;">
         <?php
         function buildQueryString($page_num) {
             $params = $_GET;

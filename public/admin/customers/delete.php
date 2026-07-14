@@ -121,7 +121,7 @@ require_once '../../../resources/views/layouts/sidebar.php';
             <button type="submit" name="confirm_delete" class="btn" style="background: #dc2626; color: white; width: 100%; justify-content: center; padding: 0.875rem; font-size: 1rem; border-radius: 10px; border: none; font-weight: 600; cursor: pointer; transition: background 0.2s;">
                 Hapus Pelanggan
             </button>
-            <a href="index.php" style="display: block; width: 100%; padding: 0.875rem; margin-top: 0.75rem; color: #4b5563; text-decoration: none; font-weight: 500;">
+            <a href="<?= isset($_SERVER['HTTP_REFERER']) ? htmlspecialchars($_SERVER['HTTP_REFERER']) : 'index.php' ?>" style="display: block; width: 100%; padding: 0.875rem; margin-top: 0.75rem; color: #4b5563; text-decoration: none; font-weight: 500;">
                 Batal
             </a>
         </form>

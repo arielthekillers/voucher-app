@@ -98,11 +98,18 @@ $settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
                 <div style="font-weight: 600; font-size: 0.9rem;"><?= htmlspecialchars($current_user['name'] ?? 'User') ?></div>
                 <div style="font-size: 0.75rem; color: var(--text-muted);"><?= ucfirst($current_user['role'] ?? '') ?></div>
             </div>
-            <div style="width: 36px; height: 36px; background: var(--primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
-                <?= substr($current_user['name'] ?? 'U', 0, 1) ?>
-            </div>
+            <?php if (!empty($current_user['avatar'])): ?>
+                <img src="<?= BASE_URL ?>/storage/uploads/avatars/<?= htmlspecialchars($current_user['avatar']) ?>" alt="Avatar" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <?php else: ?>
+                <div style="width: 36px; height: 36px; background: var(--primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <?= substr($current_user['name'] ?? 'U', 0, 1) ?>
+                </div>
+            <?php endif; ?>
             
-            <div class="user-dropdown-menu d-none-md">
+                <div class="user-dropdown-menu d-none-md">
+                    <a href="<?= ASSET_URL ?>/admin/profile.php" class="user-dropdown-item">
+                        <i class='bx bx-user'></i> Edit Profile
+                    </a>
                 <?php if ($current_user && $current_user['role'] === 'super_admin'): ?>
                     <a href="<?= ASSET_URL ?>/admin/settings/index.php" class="user-dropdown-item">
                         <i class='bx bx-cog'></i> Settings

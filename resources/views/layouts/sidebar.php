@@ -47,6 +47,9 @@ $settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
             <a href="<?= ASSET_URL ?>/admin/outlets/index.php" class="nav-link <?= isActive('/admin/outlets/') ?>">
                 <i class='bx bxs-store'></i> Master Outlet
             </a>
+            <a href="<?= ASSET_URL ?>/admin/nominals/index.php" class="nav-link <?= isActive('/admin/nominals/') ?>">
+                <i class='bx bx-money'></i> Master Nominal
+            </a>
             <a href="<?= ASSET_URL ?>/admin/settings/index.php" class="nav-link d-md-none <?= isActive('/admin/settings/index.php') ?>">
                 <i class='bx bx-cog'></i> Settings
             </a>

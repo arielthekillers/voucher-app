@@ -30,8 +30,12 @@ $users = $db->query("
         ?>
         <div class="user-card">
             <div class="user-header">
-                <div class="user-avatar">
-                    <?= $initial ?>
+                <div class="user-avatar" <?php if(!empty($u['avatar'])) echo 'style="background: transparent;"'; ?>>
+                    <?php if (!empty($u['avatar'])): ?>
+                        <img src="<?= BASE_URL ?>/storage/uploads/avatars/<?= htmlspecialchars($u['avatar']) ?>" alt="Avatar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <?php else: ?>
+                        <?= $initial ?>
+                    <?php endif; ?>
                 </div>
                 <div class="user-info">
                     <h3><?= htmlspecialchars($u['name']) ?></h3>

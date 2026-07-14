@@ -9,7 +9,7 @@ CSRF::check($_POST['csrf_token'] ?? '');
 
 $customer_id = (int) $_POST['customer_id'];
 $purchase    = (float) $_POST['amount'];
-$point       = (int) $_POST['point'];
+$point       = 1; // Force 1 stamp only as requested
 
 $user = Auth::user();
 
@@ -21,6 +21,15 @@ if (empty($user['outlet_id'])) {
 }
 
 $db = Database::connect();
+
+/* CEK BATAS HARIAN (1 HARI HANYA 1 TRANSAKSI EARN) */
+$checkDaily = $db->prepare("SELECT id FROM transactions WHERE customer_id = ? AND type = 'EARN' AND DATE(created_at) = CURDATE()");
+$checkDaily->execute([$customer_id]);
+if ($checkDaily->fetch()) {
+    $_SESSION['flash_error'] = "Customer ini sudah menerima stamp hari ini. Batas: 1 transaksi/hari.";
+    header('Location: earn.php');
+    exit;
+}
 
 /* SNAPSHOT CUSTOMER */
 $c = $db->prepare("SELECT name, phone FROM customers WHERE id = ?");

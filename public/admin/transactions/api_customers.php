@@ -8,6 +8,15 @@ auth_required();
 $db = Database::connect();
 
 $q = $_GET['q'] ?? '';
+$phone_exact = $_GET['phone'] ?? '';
+
+if ($phone_exact) {
+    $stmt = $db->prepare("SELECT id, name, phone FROM customers WHERE phone = ?");
+    $stmt->execute([$phone_exact]);
+    $customer = $stmt->fetch(PDO::FETCH_ASSOC);
+    echo json_encode($customer ? [$customer] : []);
+    exit;
+}
 
 if (strlen($q) < 2) {
     echo json_encode([]);

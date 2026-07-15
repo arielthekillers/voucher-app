@@ -53,7 +53,14 @@ $nominals = $db->query("SELECT amount FROM purchase_nominals WHERE is_active = 1
     <div class="card" style="padding: 1.5rem;">
         <form action="earn_store.php" method="POST" id="earn-form">
             <label style="font-weight: 500; color: var(--text-main); margin-bottom: 0.5rem; display: block;">Cari & Pilih Customer</label>
-            <select name="customer_id" id="customer-select" required placeholder="Ketik nama atau no HP customer..."></select>
+            <div style="display: flex; gap: 0.5rem; align-items: stretch;">
+                <div style="flex: 1; min-width: 0;">
+                    <select name="customer_id" id="customer-select" required placeholder="Ketik nama atau no HP customer..."></select>
+                </div>
+                <button type="button" class="btn btn-secondary" id="btn-scan-qr" style="width: 54px; padding: 0; border: 1px solid var(--border-color); background: #f8fafc; color: var(--text-main); border-radius: var(--radius); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+                    <i class='bx bx-qr-scan' style="font-size: 1.5rem;"></i>
+                </button>
+            </div>
 
             <div style="margin-top: 2rem;">
                 <label style="font-weight: 500; color: var(--text-main); margin-bottom: 0.75rem; display: block;">Pilih Nominal Cepat (Rp)</label>
@@ -95,6 +102,16 @@ $nominals = $db->query("SELECT amount FROM purchase_nominals WHERE is_active = 1
     </div>
 </div>
 
+<!-- QR Scanner Modal -->
+<div id="qr-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center;">
+    <div style="background: #fff; padding: 1.5rem; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; position: relative;">
+        <h3 style="margin-top: 0; margin-bottom: 1rem;">Scan QR Customer</h3>
+        <div id="qr-reader" style="width: 100%; margin-bottom: 1rem; overflow: hidden; border-radius: 12px;"></div>
+        <button type="button" id="btn-close-qr" class="btn" style="width: 100%; background: #e2e8f0; color: var(--text-main);">Batal</button>
+    </div>
+</div>
+
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script>
     const customerDropdown = new TomSelect('#customer-select', {
         valueField: 'id',
@@ -137,6 +154,59 @@ $nominals = $db->query("SELECT amount FROM purchase_nominals WHERE is_active = 1
         if (!amount) {
             alert('Silakan pilih nominal belanja terlebih dahulu!');
             e.preventDefault();
+        }
+    });
+
+    // QR Code Scanner Logic
+    let html5QrcodeScanner;
+    
+    document.getElementById('btn-scan-qr').addEventListener('click', function() {
+        document.getElementById('qr-modal').style.display = 'flex';
+        
+        if (!html5QrcodeScanner) {
+            html5QrcodeScanner = new Html5Qrcode("qr-reader");
+        }
+        
+        html5QrcodeScanner.start(
+            { facingMode: "environment" },
+            { fps: 10, qrbox: { width: 250, height: 250 } },
+            (decodedText, decodedResult) => {
+                // Berhasil scan
+                html5QrcodeScanner.stop().then(() => {
+                    document.getElementById('qr-modal').style.display = 'none';
+                    // Fetch data ke API
+                    fetch(`api_customers.php?phone=${encodeURIComponent(decodedText)}`)
+                        .then(response => response.json())
+                        .then(json => {
+                            if (json && json.length > 0) {
+                                customerDropdown.addOption(json[0]);
+                                customerDropdown.setValue(json[0].id);
+                            } else {
+                                alert("Customer tidak ditemukan dari QR ini.");
+                            }
+                        }).catch(e => {
+                            alert("Terjadi kesalahan saat memproses QR.");
+                        });
+                }).catch(err => console.error(err));
+            },
+            (errorMessage) => {
+                // abaikan error jika sedang proses baca 
+            })
+        .catch((err) => {
+            alert("Tidak dapat mengakses kamera. Pastikan Anda telah mengizinkan akses kamera browser.");
+            document.getElementById('qr-modal').style.display = 'none';
+        });
+    });
+
+    document.getElementById('btn-close-qr').addEventListener('click', function() {
+        if (html5QrcodeScanner) {
+            html5QrcodeScanner.stop().then(() => {
+                document.getElementById('qr-modal').style.display = 'none';
+            }).catch(err => {
+                document.getElementById('qr-modal').style.display = 'none';
+            });
+        } else {
+            document.getElementById('qr-modal').style.display = 'none';
         }
     });
 </script>

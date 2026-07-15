@@ -31,7 +31,7 @@ unset($_SESSION['registration_success']);
 
 if ($phone) {
     // Basic sanitization
-    // $phone = preg_replace('/[^0-9]/', '', $phone); 
+    $phone = preg_replace('/[^0-9]/', '', $phone);
 
     // Fetch Customer
     $stmt = $db->prepare("SELECT * FROM customers WHERE phone = ?");
@@ -53,12 +53,12 @@ if ($phone) {
         // Fetch Active Promos
         $promos = $db->query("SELECT * FROM promos WHERE is_active = 1 ORDER BY point_cost ASC")->fetchAll();
 
-        // Fetch History (Redeem)
+        // Fetch History (All Transactions)
         $stmtH = $db->prepare("
             SELECT t.*, p.title as promo_title
             FROM transactions t
             LEFT JOIN promos p ON t.promo_id = p.id
-            WHERE t.customer_id = ? AND t.type = 'REDEEM'
+            WHERE t.customer_id = ?
             ORDER BY t.created_at DESC
         ");
         $stmtH->execute([$customer['id']]);
@@ -218,23 +218,25 @@ if ($phone) {
             align-items: center;
             justify-content: center;
             color: #000;
+            position: relative;
+            overflow: hidden;
         }
         .card-bottom {
             background: #1f1f1f; /* Dark Grey/Black */
-            padding: 1.25rem;
+            padding: 1rem 1.25rem;
             color: #fff;
-            height: 40%; /* Fixed proportion for bottom part */
         }
         .card-label {
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             opacity: 0.7;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0;
         }
         .card-value {
             font-size: 1.1rem;
             font-weight: 600;
+            line-height: 1.2;
         }
         .point-display {
             text-align: center;
@@ -435,9 +437,14 @@ if ($phone) {
                 
                 <div class="loyalty-card">
                     <div class="card-top">
-                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; text-align: center;">
+                        <?php if ($businessLogo): ?>
+                            <!-- Background Logo (Watermark) -->
+                            <img src="<?= BASE_URL ?>/storage/uploads/settings/<?= htmlspecialchars($businessLogo) ?>" style="position: absolute; right: -20px; top: 50%; transform: translateY(-50%) rotate(20deg); height: 140%; opacity: 0.15; pointer-events: none; z-index: 0;">
+                        <?php endif; ?>
+                        
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; text-align: center; position: relative; z-index: 1;">
                             <?php if ($businessLogo): ?>
-                                <img src="<?= BASE_URL ?>/storage/uploads/settings/<?= htmlspecialchars($businessLogo) ?>" style="height: 50px; width: auto; max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 0.5rem;">
+                                <img src="<?= BASE_URL ?>/storage/uploads/settings/<?= htmlspecialchars($businessLogo) ?>" style="height: 50px; width: auto; max-width: 100%; border-radius: 8px; margin-bottom: 0.5rem;">
                             <?php endif; ?>
                             <div style="font-weight: 700; font-size: 1.1rem;"><?= htmlspecialchars($businessName) ?></div>
                         </div>
@@ -447,7 +454,7 @@ if ($phone) {
                             <div>
                                 <div class="card-label">MEMBER</div>
                                 <div class="card-value"><?= htmlspecialchars($customer['name']) ?></div>
-                                <div style="font-size: 0.85rem; opacity: 0.7; margin-top: 5px;"><?= htmlspecialchars($customer['phone']) ?></div>
+                                <div style="font-size: 0.85rem; opacity: 0.7; margin-top: 2px;"><?= htmlspecialchars($customer['phone']) ?></div>
                             </div>
                             <div style="text-align: right;">
                                 <div class="card-label">TOTAL <?= strtoupper($currency) ?></div>
@@ -470,6 +477,13 @@ if ($phone) {
                         <div style="font-size: 0.8rem; color: var(--text-muted);">Joined</div>
                         <div style="font-weight: 600;"><?= date('M Y', strtotime($customer['created_at'])) ?></div>
                     </div>
+                </div>
+
+                <!-- Bagian QR Code -->
+                <div style="background: #fff; padding: 1.5rem; border-radius: 16px; text-align: center; border: 1px solid var(--border); margin-top: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                    <p style="margin-top: 0; margin-bottom: 1rem; font-weight: 600; color: var(--text-main);">Tunjukkan QR ini ke Kasir</p>
+                    <div id="qrcode" style="display: flex; justify-content: center; margin-bottom: 0.5rem;"></div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted); letter-spacing: 1px; font-weight: 500;"><?= htmlspecialchars($customer['phone']) ?></div>
                 </div>
 
                 <?php if (!empty($settings['google_review_link'])): ?>
@@ -497,7 +511,7 @@ if ($phone) {
                         ?>
                         <div class="promo-card <?= !$canRedeem ? 'disabled' : '' ?>">
                             <?php if($promo['image']): ?>
-                                <img src="<?= BASE_URL ?>/storage/uploads/promos/<?= htmlspecialchars($promo['image']) ?>" class="promo-img">
+                                <img src="<?= BASE_URL ?>/storage/uploads/promos/<?= htmlspecialchars($promo['image']) ?>" class="promo-img" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22150%22%3E%3Crect%20fill%3D%22%23eee%22%20width%3D%22100%25%22%20height%3D%22100%25%22%2F%3E%3Ctext%20fill%3D%22%23ccc%22%20x%3D%2250%25%22%20y%3D%2250%25%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20text-anchor%3D%22middle%22%20dy%3D%22.3em%22%3ENo%20Image%3C%2Ftext%3E%3C%2Fsvg%3E';">
                             <?php else: ?>
                                 <div class="promo-img" style="display: flex; align-items: center; justify-content: center; color: #ccc;">No Image</div>
                             <?php endif; ?>
@@ -523,21 +537,27 @@ if ($phone) {
             </div>
 
             <div id="tab-history" class="content-area hidden">
-                <h3 style="margin-top: 0; margin-bottom: 1.5rem;">Riwayat Penukaran</h3>
+                <h3 style="margin-top: 0; margin-bottom: 1.5rem;">Riwayat Transaksi</h3>
                 
                 <?php if(empty($history)): ?>
                     <div class="text-center" style="padding: 2rem; color: var(--text-muted);">
-                        Belum ada riwayat penukaran.
+                        Belum ada riwayat transaksi.
                     </div>
                 <?php else: ?>
                     <?php foreach($history as $h): ?>
                         <div class="history-item">
                             <div class="history-left">
-                                <div class="history-title"><?= htmlspecialchars($h['promo_title_snapshot'] ?? $h['promo_title'] ?? 'Redeem') ?></div>
+                                <div class="history-title">
+                                    <?php if($h['type'] === 'EARN'): ?>
+                                        Tambah Stamp
+                                    <?php else: ?>
+                                        Tukar: <?= htmlspecialchars($h['promo_title_snapshot'] ?? $h['promo_title'] ?? 'Promo') ?>
+                                    <?php endif; ?>
+                                </div>
                                 <div class="history-date"><?= date('d M Y H:i', strtotime($h['created_at'])) ?></div>
                             </div>
-                            <div class="history-cost">
-                                -<?= number_format($h['point_amount']) ?>
+                            <div class="history-cost" style="color: <?= $h['type'] === 'EARN' ? '#10b981' : '#ef4444' ?>;">
+                                <?= $h['type'] === 'EARN' ? '+' : '-' ?><?= number_format($h['point_amount']) ?>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -561,6 +581,7 @@ if ($phone) {
             </nav>
         </div>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
         <script>
             function switchTab(tabName) {
                 // Hide all content
@@ -570,12 +591,24 @@ if ($phone) {
                 
                 // Update nav state
                 document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-                // Simple index matching for now or logic to find button
-                // Finding button by onclick attribute value
+                
                 const buttons = document.querySelectorAll('.nav-item');
                 if (tabName === 'home') buttons[0].classList.add('active');
                 if (tabName === 'promos') buttons[1].classList.add('active');
                 if (tabName === 'history') buttons[2].classList.add('active');
+            }
+
+            // Generate QR Code
+            const qrContainer = document.getElementById("qrcode");
+            if (qrContainer) {
+                new QRCode(qrContainer, {
+                    text: "<?= htmlspecialchars($customer['phone']) ?>",
+                    width: 140,
+                    height: 140,
+                    colorDark : "#111827",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
             }
         </script>
     <?php endif; ?>

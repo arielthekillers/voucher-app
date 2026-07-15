@@ -18,6 +18,8 @@ $phone = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
     $phone = trim($_POST['phone'] ?? '');
+    // Basic sanitization (hanya angka)
+    $phone = preg_replace('/[^0-9]/', '', $phone);
     
     if (!$name || !$phone) {
         $error = 'Semua field harus diisi';

@@ -79,6 +79,9 @@ $transactions = $tx_stmt->fetchAll();
             <a href="edit.php?id=<?= $customer['id'] ?>" class="btn" style="background: #f1f5f9; color: var(--text-main); border: none; padding: 0.6rem; text-align: center; border-radius: 6px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
                 <i class='bx bx-edit-alt'></i> Edit Profil
             </a>
+            <a href="delete.php?id=<?= $customer['id'] ?>" class="btn" style="background: #fee2e2; color: #991b1b; border: none; padding: 0.6rem; text-align: center; border-radius: 6px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                <i class='bx bx-trash'></i> Hapus
+            </a>
         </div>
     </div>
 

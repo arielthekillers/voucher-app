@@ -172,7 +172,6 @@ $customers = $stmt->fetchAll();
                 <th>No HP</th>
                 <th>Total Stamp</th>
                 <th>Tanggal Daftar</th>
-                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -180,7 +179,7 @@ $customers = $stmt->fetchAll();
                 <?php foreach ($customers as $c): ?>
                     <tr>
                         <td>
-                            <div style="font-weight: 600; color: var(--text-main);"><?= htmlspecialchars($c['name']) ?></div>
+                            <a href="profile.php?id=<?= $c['id'] ?>" style="font-weight: 600; color: var(--primary); text-decoration: none;"><?= htmlspecialchars($c['name']) ?></a>
                         </td>
                         <td><?= htmlspecialchars($c['phone']) ?></td>
                         <td>
@@ -191,22 +190,6 @@ $customers = $stmt->fetchAll();
                         <td>
                             <div style="font-size: 0.85rem;"><?= date('d M Y', strtotime($c['created_at'])) ?></div>
                             <div style="font-size: 0.75rem; color: var(--text-muted);"><?= date('H:i', strtotime($c['created_at'])) ?></div>
-                        </td>
-                        <td>
-                            <div style="display: flex; gap: 0.25rem;">
-                                <a href="profile.php?id=<?= $c['id'] ?>" class="btn-icon" style="color: #0284c7; background: #e0f2fe;" title="Lihat Profil">
-                                    <i class='bx bx-user'></i>
-                                </a>
-                                <a href="send_message.php?id=<?= $c['id'] ?>" class="btn-icon" style="color: #25D366; background: #dcfce7;" title="Chat WhatsApp">
-                                    <i class='bx bxl-whatsapp'></i>
-                                </a>
-                                <a href="edit.php?id=<?= $c['id'] ?>" class="btn-icon text-primary" style="background: #eef2ff;" title="Edit">
-                                    <i class='bx bx-edit-alt'></i>
-                                </a>
-                                <a href="delete.php?id=<?= $c['id'] ?>" class="btn-icon text-danger" style="background: #fef2f2;" title="Hapus">
-                                    <i class='bx bx-trash'></i>
-                                </a>
-                            </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -228,26 +211,12 @@ $customers = $stmt->fetchAll();
                 <div style="background: #fff; padding: 1.25rem; border-radius: 12px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 1rem; box-shadow: 0 1px 2px rgba(0,0,0,0.02);">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;">
                         <div style="flex: 1; min-width: 0;">
-                            <div style="font-weight: 600; font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?= htmlspecialchars($c['name']) ?></div>
+                            <a href="profile.php?id=<?= $c['id'] ?>" style="display: block; font-weight: 600; font-size: 1.1rem; color: var(--primary); margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-decoration: none;"><?= htmlspecialchars($c['name']) ?></a>
                             <div style="font-size: 0.85rem; color: var(--text-muted);"><?= htmlspecialchars($c['phone']) ?> &bull; <?= date('d M y', strtotime($c['created_at'])) ?></div>
                         </div>
                         <span class="badge" style="background-color: #e0e7ff; color: #3730a3; font-size: 0.8rem; padding: 0.35rem 0.75rem; white-space: nowrap; border-radius: 20px;">
                             <?= number_format($c['current_stamp']) ?> Stamp
                         </span>
-                    </div>
-                    <div style="display: flex; gap: 0.5rem; border-top: 1px solid #f1f5f9; padding-top: 1rem;">
-                        <a href="profile.php?id=<?= $c['id'] ?>" class="btn-icon" style="color: #0284c7; background: #e0f2fe; flex: 1; justify-content: center; height: 38px; border-radius: 8px;" title="Lihat Profil">
-                            <i class='bx bx-user' style="font-size: 1.2rem;"></i>
-                        </a>
-                        <a href="send_message.php?id=<?= $c['id'] ?>" class="btn-icon" style="color: #25D366; background: #dcfce7; flex: 1; justify-content: center; height: 38px; border-radius: 8px;" title="Chat WhatsApp">
-                            <i class='bx bxl-whatsapp' style="font-size: 1.2rem;"></i>
-                        </a>
-                        <a href="edit.php?id=<?= $c['id'] ?>" class="btn-icon text-primary" style="background: #eef2ff; flex: 1; justify-content: center; height: 38px; border-radius: 8px;" title="Edit">
-                            <i class='bx bx-edit-alt' style="font-size: 1.2rem;"></i>
-                        </a>
-                        <a href="delete.php?id=<?= $c['id'] ?>" class="btn-icon text-danger" style="background: #fef2f2; flex: 1; justify-content: center; height: 38px; border-radius: 8px;" title="Hapus">
-                            <i class='bx bx-trash' style="font-size: 1.2rem;"></i>
-                        </a>
                     </div>
                 </div>
             <?php endforeach; ?>

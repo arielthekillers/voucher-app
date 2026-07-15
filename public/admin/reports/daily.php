@@ -88,13 +88,18 @@ $top_promos = $stmt_promo->fetchAll();
         <h2 style="margin: 0; font-size: 1.5rem; font-weight: 600;">Reports</h2>
         <p style="color: var(--text-muted); margin-top: 0.25rem;">Ringkasan performa pada rentang waktu tertentu</p>
     </div>
-    
-    <form method="GET" style="margin: 0;">
-        <label for="date_range" style="display: flex; align-items: center; background: #fff; border: 1px solid var(--border-color); border-radius: 8px; padding: 0 1rem; height: 42px; cursor: pointer; box-shadow: var(--shadow-sm); margin: 0;">
-            <i class='bx bx-calendar' style="color: var(--text-muted); font-size: 1.2rem; margin-right: 0.5rem; display: flex; align-items: center;"></i>
-            <input type="text" name="date_range" id="date_range" value="<?= htmlspecialchars($display_date) ?>" placeholder="Pilih Rentang Tanggal..." style="border: none; outline: none; background: transparent; font-family: inherit; font-size: 0.9rem; color: var(--text-main); font-weight: 600; width: 220px; cursor: pointer; padding: 0; margin: 0; height: 100%;">
-        </label>
-    </form>
+    <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+        <form method="GET" style="margin: 0;">
+            <label for="date_range" style="display: flex; align-items: center; background: #fff; border: 1px solid var(--border-color); border-radius: 8px; padding: 0 1rem; height: 42px; cursor: pointer; box-shadow: var(--shadow-sm); margin: 0;">
+                <i class='bx bx-calendar' style="color: var(--text-muted); font-size: 1.2rem; margin-right: 0.5rem; display: flex; align-items: center;"></i>
+                <input type="text" name="date_range" id="date_range" value="<?= htmlspecialchars($display_date) ?>" placeholder="Pilih Rentang Tanggal..." style="border: none; outline: none; background: transparent; font-family: inherit; font-size: 0.9rem; color: var(--text-main); font-weight: 600; width: 220px; cursor: pointer; padding: 0; margin: 0; height: 100%;">
+            </label>
+        </form>
+        
+        <a href="export_daily.php?start_date=<?= urlencode($start_date) ?>&end_date=<?= urlencode($end_date) ?>" class="btn btn-secondary" style="background: #fff; border: 1px solid var(--border-color); color: var(--text-main); display: flex; align-items: center; gap: 0.5rem; height: 42px;">
+            <i class='bx bx-export'></i> <span class="d-none-sm">Export CSV</span>
+        </a>
+    </div>
 </div>
 
 <!-- ROW 1: CARDS -->

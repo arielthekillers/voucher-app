@@ -116,7 +116,7 @@ $is_super_admin = Auth::user()['role'] === 'super_admin';
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <div style="font-weight: 500; font-size: 0.9rem;"><?= htmlspecialchars($t['customer_name_snapshot']) ?></div>
+                                <a href="../customers/profile.php?id=<?= $t['customer_id'] ?>" style="font-weight: 600; font-size: 0.9rem; color: var(--primary); text-decoration: none; display: block; margin-bottom: 0.1rem;"><?= htmlspecialchars($t['customer_name_snapshot']) ?></a>
                                 <div style="font-size: 0.75rem; color: var(--text-muted);"><?= htmlspecialchars($t['customer_phone_snapshot']) ?></div>
                             </td>
                             <td>

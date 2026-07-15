@@ -131,6 +131,11 @@ $customers = $stmt->fetchAll();
                 <i class='bx bx-wrench'></i> <span class="d-none-sm">Fix Format No HP</span>
             </button>
         </form>
+        
+        <a href="export_customers.php" class="btn btn-secondary" style="background: #fff; border: 1px solid var(--border-color); color: var(--text-main); display: flex; align-items: center; justify-content: center; gap: 0.5rem; height: 38px;">
+            <i class='bx bx-export'></i> <span class="d-none-sm">Export CSV</span>
+        </a>
+        
         <a href="create.php" class="btn btn-primary" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; height: 38px;">
             <i class='bx bx-plus'></i> <span>Tambah Customer</span>
         </a>

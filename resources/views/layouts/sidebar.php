@@ -54,6 +54,9 @@ $settings = $db->query("SELECT * FROM settings")->fetchAll(PDO::FETCH_KEY_PAIR);
                 <i class='bx bx-cog'></i> Settings
             </a>
             <a href="<?= ASSET_URL ?>/admin/reports/index.php" class="nav-link <?= isActive('/admin/reports/index.php') ?>">
+                <i class='bx bx-pie-chart-alt-2'></i> Summary
+            </a>
+            <a href="<?= ASSET_URL ?>/admin/reports/daily.php" class="nav-link <?= isActive('/admin/reports/daily.php') ?>">
                 <i class='bx bx-bar-chart-alt-2'></i> Reports
             </a>
         <?php endif; ?>

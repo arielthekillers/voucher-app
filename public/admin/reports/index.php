@@ -108,9 +108,9 @@ $latest_transactions = $db->query("
 
     <!-- Right: Chart -->
     <div class="chart-card card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-            <h3 style="font-size: 1.125rem; margin: 0;">Grafik Transaksi</h3>
-            <div class="chart-filters">
+        <div class="chart-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem;">
+            <h3 style="font-size: 1.125rem; margin: 0; white-space: nowrap;">Grafik Transaksi</h3>
+            <div class="chart-filters" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
                 <button class="filter-btn active" onclick="switchChart('daily', this)">Daily</button>
                 <button class="filter-btn" onclick="switchChart('weekly', this)">Weekly</button>
                 <button class="filter-btn" onclick="switchChart('monthly', this)">Monthly</button>
@@ -127,7 +127,7 @@ $latest_transactions = $db->query("
     
     <!-- Table 1: Transactions -->
     <div class="card table-wrapper">
-        <h4>Transaksi Terakhir</h4>
+        <h4><a href="../transactions/history.php" style="text-decoration: none; color: var(--text-main); display: flex; align-items: center; justify-content: space-between;">Transaksi Terakhir <i class='bx bx-chevron-right' style="color: var(--text-muted);"></i></a></h4>
         <table class="table-sm">
             <tbody>
                 <?php foreach($latest_transactions as $t): ?>
@@ -147,7 +147,7 @@ $latest_transactions = $db->query("
 
     <!-- Table 2: Top Customers -->
     <div class="card table-wrapper">
-        <h4>Top Customer</h4>
+        <h4><a href="../customers/index.php?sort=highest" style="text-decoration: none; color: var(--text-main); display: flex; align-items: center; justify-content: space-between;">Top Customer <i class='bx bx-chevron-right' style="color: var(--text-muted);"></i></a></h4>
         <table class="table-sm">
             <tbody>
                 <?php foreach($top_customers as $c): ?>
@@ -167,7 +167,7 @@ $latest_transactions = $db->query("
 
     <!-- Table 3: New Customers -->
     <div class="card table-wrapper">
-        <h4>Customer Baru</h4>
+        <h4><a href="../customers/index.php?sort=newest" style="text-decoration: none; color: var(--text-main); display: flex; align-items: center; justify-content: space-between;">Customer Baru <i class='bx bx-chevron-right' style="color: var(--text-muted);"></i></a></h4>
         <table class="table-sm">
             <tbody>
                 <?php foreach($latest_customers as $c): ?>
@@ -245,10 +245,11 @@ $latest_transactions = $db->query("
     .table-wrapper {
         margin-bottom: 0;
         padding: 1rem;
+        overflow-x: auto;
     }
     .table-wrapper h4 { margin-bottom: 0.75rem; font-size: 0.9rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
     
-    .table-sm { width: 100%; border-collapse: collapse; }
+    .table-sm { width: 100%; border-collapse: collapse; white-space: nowrap; }
     .table-sm td { padding: 0.5rem 0; border-bottom: 1px solid #f9fafb; }
     .table-sm tr:last-child td { border-bottom: none; }
     
@@ -256,6 +257,10 @@ $latest_transactions = $db->query("
     @media (max-width: 1024px) {
         .row-top { grid-template-columns: 1fr; }
         .row-bottom { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+        .chart-header { flex-direction: column; align-items: flex-start !important; }
+        .chart-filters { width: 100%; justify-content: flex-start; }
     }
 </style>
 

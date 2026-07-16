@@ -147,6 +147,7 @@ $current_url = $_SERVER['REQUEST_URI'];
                                         </a>
                                         <form action="delete.php" method="POST" onsubmit="return confirm('Yakin ingin menghapus transaksi ini? Saldo customer akan dikoreksi secara otomatis.')" style="margin:0;">
                                             <input type="hidden" name="id" value="<?= $t['id'] ?>">
+                                            <input type="hidden" name="return_url" value="<?= htmlspecialchars($current_url) ?>">
                                             <?= csrf_field() ?>
                                             <button class="btn btn-sm" style="background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5;" title="Hapus">
                                                 <i class='bx bx-trash'></i>

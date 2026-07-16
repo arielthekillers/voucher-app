@@ -11,8 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 CSRF::check($_POST['csrf_token'] ?? '');
 
 $id = $_POST['id'] ?? null;
+$return_url = $_POST['return_url'] ?? $_SERVER['HTTP_REFERER'] ?? 'history.php';
+
 if (!$id) {
-    header('Location: history.php');
+    header('Location: ' . $return_url);
     exit;
 }
 
@@ -27,5 +29,5 @@ try {
     $_SESSION['flash_error'] = "Gagal menghapus transaksi: " . $e->getMessage();
 }
 
-header('Location: history.php');
+header('Location: ' . $return_url);
 exit;

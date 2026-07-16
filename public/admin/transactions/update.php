@@ -31,5 +31,6 @@ try {
     $_SESSION['flash_error'] = "Gagal memperbarui transaksi: " . $e->getMessage();
 }
 
-header('Location: history.php');
+$return_url = $_POST['return_url'] ?? 'history.php';
+header('Location: ' . $return_url);
 exit;

@@ -45,6 +45,7 @@ $stmt->execute($params);
 $transactions = $stmt->fetchAll();
 
 $is_super_admin = Auth::user()['role'] === 'super_admin';
+$current_url = $_SERVER['REQUEST_URI'];
 ?>
 
 <?php include '../../../resources/views/layouts/header.php'; ?>
@@ -141,7 +142,7 @@ $is_super_admin = Auth::user()['role'] === 'super_admin';
                             <?php if ($is_super_admin): ?>
                                 <td style="text-align: center; white-space: nowrap;">
                                     <div style="display: flex; gap: 0.5rem; justify-content: center;">
-                                        <a href="edit.php?id=<?= $t['id'] ?>" class="btn btn-sm btn-secondary" title="Edit">
+                                        <a href="edit.php?id=<?= $t['id'] ?>&return_url=<?= urlencode($current_url) ?>" class="btn btn-sm btn-secondary" title="Edit">
                                             <i class='bx bx-edit'></i>
                                         </a>
                                         <form action="delete.php" method="POST" onsubmit="return confirm('Yakin ingin menghapus transaksi ini? Saldo customer akan dikoreksi secara otomatis.')" style="margin:0;">

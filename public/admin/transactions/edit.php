@@ -13,6 +13,8 @@ if (!$id) {
     exit;
 }
 
+$return_url = $_GET['return_url'] ?? $_SERVER['HTTP_REFERER'] ?? 'history.php';
+
 $stmt = $db->prepare("SELECT * FROM transactions WHERE id = ?");
 $stmt->execute([$id]);
 $transaction = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -38,6 +40,7 @@ if (!$transaction) {
 
     <form action="update.php" method="POST">
         <input type="hidden" name="id" value="<?= $transaction['id'] ?>">
+        <input type="hidden" name="return_url" value="<?= htmlspecialchars($return_url) ?>">
         <?= csrf_field() ?>
 
         <?php if ($transaction['type'] === 'EARN'): ?>
@@ -53,7 +56,7 @@ if (!$transaction) {
 
         <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
             <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-            <a href="history.php" class="btn btn-secondary">Batal</a>
+            <a href="<?= htmlspecialchars($return_url) ?>" class="btn btn-secondary">Batal</a>
         </div>
     </form>
 </div>

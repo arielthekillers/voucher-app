@@ -1,0 +1,6 @@
+.git
+.gitignore
+.env
+vendor/
+node_modules/
+update_voucher_terbaru.zip

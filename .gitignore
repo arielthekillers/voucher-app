@@ -31,6 +31,7 @@ storage/cache/
 # ===============================
 .env
 .env.local
+.env.production
 
 
 # ===============================
@@ -48,3 +49,4 @@ storage/seed_super_admin.php
 *.bak
 *.old
 voucher.zip
+update_voucher_terbaru.zip

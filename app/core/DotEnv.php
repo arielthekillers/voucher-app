@@ -15,7 +15,7 @@ class DotEnv
 
     public function load(): void
     {
-        if (!is_readable($this->path)) {
+        if (empty($this->path) || !is_readable($this->path)) {
             return;
         }
 

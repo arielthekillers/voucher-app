@@ -39,9 +39,13 @@ if (!empty($_FILES['image']['name'])) {
     }
 
     $imageName = time() . '_' . bin2hex(random_bytes(8)) . '.' . $ext;
+    $uploadDir = '../../../storage/uploads/promos/';
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
     move_uploaded_file(
         $file['tmp_name'],
-        '../../../storage/uploads/promos/' . $imageName
+        $uploadDir . $imageName
     );
 }
 
